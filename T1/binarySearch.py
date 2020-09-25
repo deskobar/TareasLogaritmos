@@ -25,16 +25,14 @@ def binarySearch(path_p, path_t):
       ft.seek(10*m)
       current_num = int(ft.read(9))
       if p <= current_num:
-        h = m;
+        h = m
       else:
-        l = m + 1;
+        l = m + 1
     ft.seek(10*l)
     current_num = int(ft.read(9))
     if p == current_num:
-        num_str = str(current_num) 
-        num_str_zeros = num_str.zfill(9)
-        text = "".join([num_str_zeros,"\n"])
-        output.write(text)
+        num = str(current_num).zfill(9) + '\n'
+        output.write(num)
   output.close()
   ft.close()
   return 0
