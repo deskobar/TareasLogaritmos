@@ -2,21 +2,40 @@
 # h: fin del espacio de búsqueda
 # Requiere que la propiedad sea "monótona": es falsa hasta cierto punto. Después de ese punto y en adelante es siempre verdadera.
 # Busca el primer valor entre l y h que hace a la propiedad verdadera.
+from pathlib import Path
 
-P = [11, 9, 1, 8, 2, 7, 3, 6, 4, 5]
-T = [1, 3, 5, 7, 9, 11]
-O = []
+def get_len(fn):
+    kB = Path(fn).stat().st_size
+    return kB//10
+
+path_p = "P.txt"
+path_t = "T.txt"
+
+P = []
+with open(path_p, 'r') as fp:
+    P = [int(line.strip()) for line in fp]
+fp.close()
+
+ft = open(path_t, 'r')
+
+
+output = open("output.txt", "w+")
 for p in P:
     l = 0
-    h = len(T) - 1
+    h = get_len(path_t)
     m = 0
     while (l < h):
       m = l + (h - l)//2
-      if p <= T[m]:
+      ft.seek(10*m)
+      current_num = int(ft.read(9))
+      if p <= current_num:
         h = m;
       else:
         l = m + 1;
-    if p == T[l]: 
-        O.append(T[l])
-        
-print(O)
+    ft.seek(10*l)
+    current_num = int(ft.read(9))
+    if p == current_num: 
+        text = "".join([str(current_num),"\n"])
+        output.write(text)
+output.close()
+ft.close()
