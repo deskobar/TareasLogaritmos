@@ -4,6 +4,7 @@
 # Busca el primer valor entre l y h que hace a la propiedad verdadera.
 from pathlib import Path
 import sys
+
 def get_len(fn):
     kB = Path(fn).stat().st_size
     return kB//10
