@@ -1,12 +1,15 @@
 import random
 import os
 import sys
+import time 
 
 P_PATH = "P_test.txt"
 T_PATH = "T_test.txt"
 T_PATH_tmp = ".tmp.txt"
 
 def generator(p, t):
+    ti = time.time()
+    print("[*] GENERATING FILES STARTED")
     P = open(P_PATH, "w+")
     T = open(T_PATH_tmp, "w+")
     for i in range(int(p)):
@@ -21,6 +24,7 @@ def generator(p, t):
     T.close()
     os.system('sort ' + T_PATH_tmp + ' > ' + T_PATH)
     os.system("rm " + T_PATH_tmp)
-    
+    print("[*] FILES GENERATED SUCCESSFULLY")
+    print("[*] TIME ELAPSED: " + str(time.time() - ti) + " (s)")
 arg = sys.argv
 generator(arg[1], arg[2])

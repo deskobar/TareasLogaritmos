@@ -4,6 +4,7 @@
 # Busca el primer valor entre l y h que hace a la propiedad verdadera.
 from pathlib import Path
 import sys
+import time
 
 def get_len(fn):
     kB = Path(fn).stat().st_size
@@ -12,6 +13,8 @@ def get_len(fn):
     return len_file
 
 def binarySearch(path_p, path_t):
+  ti = time.time()
+  print("[*] BINARYSEARCH STARTED")
   # Files section
   P = []
   with open(path_p, 'r') as fp:
@@ -40,6 +43,8 @@ def binarySearch(path_p, path_t):
         output.write(num)
   output.close()
   ft.close()
+  print("[*] BSEARCH FINISHED SUCCESSFULLY")
+  print("[*] TIME ELAPSED: " + str(time.time() - ti) + " (s)")
   return 0
 
 arg = sys.argv
