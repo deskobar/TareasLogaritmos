@@ -1,18 +1,61 @@
-def array_chunks(array, size):
-    for index in range(0, len(array), size):
-        yield array[index:index + size]
+from pathlib import Path
+import sys
+import time
 
-def linear_search(array_P, array_T, size_B):
-    P_intersection_T = []
-    chunks = array_chunks(array_T, size_B)
-    for chunk in chunks:
-        for element in chunk:
-            if element in array_P:
-                P_intersection_T.append(element)
-    return P_intersection_T
+def get_P(file_path_P):
+    P = []
+    with open(file_path_P, 'r') as file_P:
+        P = [line.strip() for line in file_P]
+    file_P.close()
+    return P
 
-array_P = [3, 5, -4598, 9, 0, 345, 23]
-array_T = [-378, 2, 7, 3, 67, 900, 2321, 4, 6, 0, 2, 1, 90, 134, 23, 345, 56, 22]
-size_B = 2
+def get_T(file_path_T):
+    file_T = open(file_path_T, 'r')
+    return file_T
 
-print(linear_search(array_P, array_T, size_B))
+def get_length_file(file_path):
+    kB = Path(file_path).stat().st_size
+    line_size = 10
+    length_file = kB//line_size
+    return length_file
+
+def read_lines(characters_per_line, number_of_lines, file_object):
+    one_big_line = file_object.read(characters_per_line * number_of_lines - 1)
+    lines = one_big_line.split('\n')
+    return lines
+
+def linear_search(file_path_P, file_path_T, block_size_B):
+    initial_time = time.time()
+    print('[*] LINEAR SEARCH STARTED')
+
+    block_size_B = int(block_size_B)
+    characters_per_line = 10
+    file_T = get_T(file_path_T)
+    length_T = get_length_file(file_path_T) - 1
+    P = get_P(file_path_P)
+    P_intersection_T_file = open('P_intersection_T_file.txt', 'w+') 
+    
+    for iteration_index in range(0, length_T, block_size_B):
+        file_pointer_location = (characters_per_line + 1) * iteration_index
+        file_T.seek(file_pointer_location)
+        if(iteration_index + block_size_B > length_T):
+            number_of_lines = length_T - iteration_index
+        else:
+            number_of_lines = block_size_B
+        lines = read_lines(characters_per_line, number_of_lines, file_T)
+        for element in lines:
+            if element in P:
+                found_element = str(element).zfill(characters_per_line - 1) + '\n'
+                P_intersection_T_file.write(found_element)
+    
+    P_intersection_T_file.close()
+    file_T.close()
+
+    final_time = time.time()
+    delta_time = final_time - initial_time
+    print('[*] LINEAR SEARCH FINISHED SUCCESSFULLY')
+    print('[*] TIME ELAPSED: ' + str(delta_time) + ' (s)')
+    return delta_time
+
+arg = sys.argv
+linear_search(arg[1], arg[2], arg[3])
