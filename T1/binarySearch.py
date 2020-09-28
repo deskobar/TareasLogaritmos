@@ -48,5 +48,5 @@ def binarySearch(path_p, path_t):
   print("[*] TIME ELAPSED: " + str(dt) + " (s)")
   return dt
 
-#arg = sys.argv
-#binarySearch(arg[1], arg[2])
+arg = sys.argv
+binarySearch(arg[1], arg[2])

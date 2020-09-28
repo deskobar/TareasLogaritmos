@@ -26,5 +26,5 @@ def generator(p, t):
     os.system("rm " + T_PATH_tmp)
     print("[*] FILES GENERATED SUCCESSFULLY")
     print("[*] TIME ELAPSED: " + str(time.time() - ti) + " (s)")
-#arg = sys.argv
-#generator(arg[1], arg[2])
+arg = sys.argv
+generator(arg[1], arg[2])
