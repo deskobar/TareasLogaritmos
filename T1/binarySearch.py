@@ -7,10 +7,10 @@ import sys
 import time
 
 def get_len(fn):
-    kB = Path(fn).stat().st_size
-    line_size = 10
-    len_file = kB//line_size
-    return len_file
+  kB = Path(fn).stat().st_size
+  line_size = 10
+  len_file = kB//line_size
+  return len_file
 
 def binarySearch(path_p, path_t):
   ti = time.time()
