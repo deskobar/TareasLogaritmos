@@ -26,7 +26,7 @@ def binarySearch(path_p, path_t):
   # We need to iterate over P loaded in memory
   for p in P:
     l = 0
-    h = get_len(path_t)
+    h = get_len(path_t) - 1
     m = 0
     while (l < h):
       m = l + (h - l)//2
@@ -43,9 +43,10 @@ def binarySearch(path_p, path_t):
         output.write(num)
   output.close()
   ft.close()
+  dt = time.time() - ti
   print("[*] BSEARCH FINISHED SUCCESSFULLY")
-  print("[*] TIME ELAPSED: " + str(time.time() - ti) + " (s)")
-  return 0
+  print("[*] TIME ELAPSED: " + str(dt) + " (s)")
+  return dt
 
 arg = sys.argv
 binarySearch(arg[1], arg[2])
