@@ -7,16 +7,20 @@ import time
 N   = 3
 MIN = 2
 MAX = 26
-
+P_LEN = "10000"
+P_PATH = "P_test.txt"
+T_LEN = "1000000"
+T_PATH = "T_test.txt"
 final_dict = {}
+
 for i in range(N):
     current_dict = {}
     for k in range(MIN, MAX):
         tmp = []
         for current_k in range(k):
-            generator("10000", "1000000")
+            generator(P_LEN, T_LEN)
             ti = time.time()
-            binary_search("P_test.txt", "T_test.txt")
+            binary_search(P_PATH, T_PATH)
             tf = time.time()
             dt = tf - ti
             tmp.append(dt)
