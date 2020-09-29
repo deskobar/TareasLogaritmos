@@ -3,7 +3,7 @@ import sys
 import time
 
 ENDLINE = sys.getsizeof('\n') - sys.getsizeof('')
-LINE_SIZE = sys.getsizeof('000000000')  + ENDLINE
+LINE_SIZE = sys.getsizeof('000000000') - sys.getsizeof('') + ENDLINE
 
 def get_len(fn):
   kB = Path(fn).stat().st_size
