@@ -3,7 +3,7 @@ import sys
 import time
 
 ENDLINE = sys.getsizeof('\n') - sys.getsizeof('')
-LINE_SIZE = 9 + ENDLINE
+LINE_SIZE = sys.getsizeof('000000000')  + ENDLINE
 
 def get_len(fn):
   kB = Path(fn).stat().st_size
@@ -35,6 +35,5 @@ def execute_search(algorithm):
     t_i = time.time()
     algorithm(args[1], args[2])
     delta_t = time.time() - t_i
-
-    print("[*] ISEARCH FINISHED SUCCESSFULLY")
+    print("[*] " + algorithm.__name__.upper() + " FINISHED SUCCESSFULLY")
     print("[*] TIME ELAPSED: " + str(delta_t) + " (s)")

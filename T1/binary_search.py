@@ -2,12 +2,7 @@
 # h: fin del espacio de búsqueda
 # Requiere que la propiedad sea "monótona": es falsa hasta cierto punto. Después de ese punto y en adelante es siempre verdadera.
 # Busca el primer valor entre l y h que hace a la propiedad verdadera.
-from pathlib import Path
-import sys
-import time
 from utils import *
-
-
 
 def binary_search(path_p, path_t):
   
@@ -22,7 +17,7 @@ def binary_search(path_p, path_t):
     m = 0
     while (l <= h):
       m = (l + h) // 2
-      current_num = read_line_from_file(ft, m)
+      current_num = read_a_line_from_file(ft, m)
       if p < int(current_num):
         h = m - 1
       elif p > int(current_num):
@@ -35,5 +30,4 @@ def binary_search(path_p, path_t):
   ft.close()
   return 0
 
-arg = sys.argv
-binary_search(arg[1], arg[2])
+execute_search(binary_search)
