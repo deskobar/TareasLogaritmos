@@ -20,22 +20,22 @@ def binary_search_modified(arr, low, high, x):
 
 
 def indexedSearch(path_p, path_t):
-    P = open(path_p, 'r')
-    T = open(path_t, 'r')
+    P = get_P(path_p)
+    T = get_T(path_t)
     S = []
-    out = open('output.txt', 'w+')
+    out = get_output("indexed_output.txt")
     
     len_t = get_len(path_t)
     B = BLOCK_SIZE
     n_blocks = len_t // B + 1
 
     for i in range(n_blocks):
-        T.seek(11 * i * B)
+        T.seek(LINE_SIZE * i * B)
         line_str = T.read(9)
         if bool(line_str):
             S.append(int(line_str))
     
-    for line in P.readlines():
+    for line in P:
         searched = int(line)
         s_interval_id = binary_search_modified(S, 0, len(S) - 1, searched)
 
@@ -44,16 +44,15 @@ def indexedSearch(path_p, path_t):
                 num = str(searched).zfill(9) + '\n'
                 out.write(num)
             else:
-                T.seek(11 * s_interval_id * B)
-                block = T.read(11 * B).split(sep='\n')
+                T.seek(LINE_SIZE * s_interval_id * B)
+                block = T.read(LINE_SIZE * B).split(sep='\n')
                 for block_number in block:
                     if bool(block_number) and searched == int(block_number):
                         num = str(searched).zfill(9) + '\n'
                         out.write(num)
-
-    P.close()
     T.close()
     out.close()
 
-
-execute_search(indexedSearch)
+args = sys.argv
+indexedSearch(args[1], args[2])
+#execute_search(indexedSearch)
