@@ -30,4 +30,4 @@ def binary_search(path_p, path_t):
   ft.close()
   return 0
 
-execute_search(binary_search)
+#execute_search(binary_search)

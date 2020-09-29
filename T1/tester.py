@@ -1,24 +1,30 @@
 import statistics
 from generator import generator
-from binarySearch import binarySearch
+from binary_search import binary_search
 import json
+import time
 
-total = {}
+N   = 3
+MIN = 2
+MAX = 26
 
-for k in range(2, 4):
-    tmp = []
-    for i in range(k):
-        generator("10000", "1000000")
-        time = binarySearch("P_test.txt", "T_test.txt")
-        tmp.append(time)
-    # quiero escribir k=2 - total=sdfs - promedio=x - std=sdfdsf
+final_dict = {}
+for i in range(N):
+    current_dict = {}
+    for k in range(MIN, MAX):
+        tmp = []
+        for current_k in range(k):
+            generator("10000", "1000000")
+            ti = time.time()
+            binary_search("P_test.txt", "T_test.txt")
+            tf = time.time()
+            dt = tf - ti
+            tmp.append(dt)
+        current_dict[k] = {"current_dict": sum(tmp), 
+                           "promedio": statistics.mean(tmp),
+                           "std": statistics.stdev(tmp)}
+    final_dict[str(i)] = current_dict 
 
-    total[k] = {"total": sum(tmp), 
-                "promedio": statistics.mean(tmp),
-                "std": statistics.stdev(tmp)} 
-
-    data = " - ".join(["k=" + str(k), "total=" + str(sum(tmp)), "promedio=" + str(statistics.mean(tmp)), "std=" + str(statistics.stdev(tmp))]) + "\n"
-    print(data)
-with open('bsearch.json', 'w+') as fp:
-    json.dump(total, fp)
+with open('exp_bsearch.json', 'w+') as fp:
+    json.dump(final_dict, fp)
 fp.close()
