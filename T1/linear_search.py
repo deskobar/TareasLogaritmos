@@ -22,6 +22,7 @@ def get_length_file(file_path):
 def read_lines(characters_per_line, number_of_lines, file_object):
     one_big_line = file_object.read(characters_per_line * number_of_lines - 1)
     lines = one_big_line.split('\n')
+    print(lines)
     return lines
 
 def linear_search(file_path_P, file_path_T, block_size_B):
@@ -31,12 +32,12 @@ def linear_search(file_path_P, file_path_T, block_size_B):
     block_size_B = int(block_size_B)
     characters_per_line = 10
     file_T = get_T(file_path_T)
-    length_T = get_length_file(file_path_T) - 1
+    length_T = get_length_file(file_path_T)
     P = get_P(file_path_P)
     P_intersection_T_file = open('P_intersection_T_file.txt', 'w+') 
     
     for iteration_index in range(0, length_T, block_size_B):
-        file_pointer_location = (characters_per_line + 1) * iteration_index
+        file_pointer_location = (characters_per_line) * iteration_index
         file_T.seek(file_pointer_location)
         if(iteration_index + block_size_B > length_T):
             number_of_lines = length_T - iteration_index
