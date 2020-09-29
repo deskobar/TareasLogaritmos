@@ -13,7 +13,7 @@ def binary_search(path_p, path_t):
   # We need to iterate over P loaded in memory
   for p in P:
     l = 0
-    h = get_len(path_t) - 1
+    h = get_length_file(path_t) - 1
     m = 0
     while (l <= h):
       m = (l + h) // 2

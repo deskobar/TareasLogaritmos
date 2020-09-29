@@ -2,20 +2,27 @@ from pathlib import Path
 import sys
 import time
 
-ENDLINE = sys.getsizeof('\n') - sys.getsizeof('')
-LINE_SIZE = sys.getsizeof('000000000') - sys.getsizeof('') + ENDLINE
+ENDLINE_SIZE = sys.getsizeof('\n') - sys.getsizeof('') # en linux vale 1
+READ_SIZE = sys.getsizeof('000000000') - sys.getsizeof('') # en linux vale 9
+LINE_SIZE =  READ_SIZE + ENDLINE_SIZE # en linux vale 10
 
-def get_len(fn):
+
+def get_length_file(fn):
   kB = Path(fn).stat().st_size
   len_file = kB // LINE_SIZE
   return len_file
 
 def read_a_line_from_file(file, line):
     to_move = line * LINE_SIZE 
-    to_read = LINE_SIZE - ENDLINE
     file.seek(to_move)
-    line = file.read(to_read)
+    line = file.read(READ_SIZE)
     return line
+
+def read_many_lines(start, number_of_lines, file_object):
+    file_object.seek(start)
+    one_big_line = file_object.read(LINE_SIZE * number_of_lines - ENDLINE_SIZE)
+    lines = one_big_line.split('\n')
+    return lines
 
 def get_P(path_p):
   with open(path_p, 'r') as fp:
@@ -37,3 +44,4 @@ def execute_search(algorithm):
     delta_t = time.time() - t_i
     print("[*] " + algorithm.__name__.upper() + " FINISHED SUCCESSFULLY")
     print("[*] TIME ELAPSED: " + str(delta_t) + " (s)")
+
