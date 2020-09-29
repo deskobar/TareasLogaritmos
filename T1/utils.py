@@ -1,6 +1,7 @@
 from pathlib import Path
 import sys
 import time
+import math
 
 ENDLINE_SIZE = sys.getsizeof('\n') - sys.getsizeof('') 
 READ_SIZE = sys.getsizeof('000000000') - sys.getsizeof('') 
@@ -28,15 +29,16 @@ def get_P(path_p):
   B = 500
   P_size = get_length_file(path_p)
   P_file = open(path_p, 'r')
-  P_array = [None for i in range(P_size)]
-  index_P_array = 0
-  n_chunks = P_size // B
+  P_array = []
+  #index_P_array = 0
+  n_chunks = math.ceil(P_size / B)
   for i in range(n_chunks):
       start_reading_from = i * B * LINE_SIZE
       str_chunk = read_many_lines(start_reading_from, B, P_file)
       for str_number in str_chunk:
-          P_array[index_P_array] = int(str_number) # si es que haces conversión a enteros
-          index_P_array += 1
+        if str_number != '':
+          P_array.append( int(str_number) )# si es que haces conversión a enteros
+          #index_P_array += 1
   P_file.close()
   return P_array
 
