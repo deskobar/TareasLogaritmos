@@ -25,10 +25,20 @@ def read_many_lines(start, number_of_lines, file_object):
     return lines
 
 def get_P(path_p):
-  with open(path_p, 'r') as fp:
-    P = [int(line.strip()) for line in fp]
-  fp.close()
-  return P
+  B = 500
+  P_size = get_length_file(path_p)
+  P_file = open(path_p, 'r')
+  P_array = [None for i in range(P_size)]
+  index_P_array = 0
+  n_chunks = P_size // B
+  for i in range(n_chunks):
+      start_reading_from = i * B * LINE_SIZE
+      str_chunk = read_many_lines(start_reading_from, B, P_file)
+      for str_number in str_chunk:
+          P_array[index_P_array] = int(str_number) # si es que haces conversión a enteros
+          index_P_array += 1
+  P_file.close()
+  return P_array
 
 def get_T(path_t):
   return open(path_t, 'r')
@@ -37,10 +47,25 @@ def get_output(path_output):
   return open(path_output, "w+")
 
 def execute_search(algorithm):
-    args = sys.argv
-    t_i = time.time()
-    algorithm(args[1], args[2])
-    delta_t = time.time() - t_i
-    print("[*] " + algorithm.__name__.upper() + " FINISHED SUCCESSFULLY")
-    print("[*] TIME ELAPSED: " + str(delta_t) + " (s)")
+  args = sys.argv
+  t_i = time.time()
+  algorithm(args[1], args[2])
+  delta_t = time.time() - t_i
+  print("[*] " + algorithm.__name__.upper() + " FINISHED SUCCESSFULLY")
+  print("[*] TIME ELAPSED: " + str(delta_t) + " (s)")
 
+"""
+    P_size = get_length_file(path_p)
+    P_file = open(path_p, 'r')
+    P_array = [None for i in range(P_size)]
+    index_P_array = 0
+    while True:
+       read_chunk = P_file.read(B)
+       if not read_chunk: # se acabó el archivo
+           break
+       str_numbers = read_chunk.split('\n')
+       for str_number in str_numbers:
+           P_array[index_P_array] = int(str_number) # si es que haces conversión a enteros
+           index_P_array += 1
+    return P_array
+"""
