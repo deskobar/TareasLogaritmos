@@ -2,9 +2,9 @@ from pathlib import Path
 import sys
 import time
 
-ENDLINE_SIZE = sys.getsizeof('\n') - sys.getsizeof('') # en linux vale 1
-READ_SIZE = sys.getsizeof('000000000') - sys.getsizeof('') # en linux vale 9
-LINE_SIZE =  READ_SIZE + ENDLINE_SIZE # en linux vale 10
+ENDLINE_SIZE = sys.getsizeof('\n') - sys.getsizeof('') 
+READ_SIZE = sys.getsizeof('000000000') - sys.getsizeof('') 
+LINE_SIZE =  READ_SIZE + ENDLINE_SIZE
 
 
 def get_length_file(fn):
@@ -38,7 +38,6 @@ def get_output(path_output):
 
 def execute_search(algorithm):
     args = sys.argv
-
     t_i = time.time()
     algorithm(args[1], args[2])
     delta_t = time.time() - t_i

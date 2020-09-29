@@ -8,7 +8,7 @@ def binary_search(path_p, path_t):
   
   P = get_P(path_p)
   ft = get_T(path_t)
-  output = get_output("binary_output.txt")
+  output = get_output("output_binary.txt")
 
   # We need to iterate over P loaded in memory
   for p in P:
