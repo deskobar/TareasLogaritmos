@@ -2,7 +2,7 @@ from pathlib import Path
 import sys
 import time
 
-ENDLINE = sys.getsizeof('\n') - 49 
+ENDLINE = sys.getsizeof('\n') - sys.getsizeof('')
 LINE_SIZE = 9 + ENDLINE
 
 def get_len(fn):

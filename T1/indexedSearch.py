@@ -53,6 +53,4 @@ def indexedSearch(path_p, path_t):
     T.close()
     out.close()
 
-args = sys.argv
-indexedSearch(args[1], args[2])
-#execute_search(indexedSearch)
+execute_search(indexedSearch)
