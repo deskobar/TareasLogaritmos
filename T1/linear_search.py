@@ -1,6 +1,4 @@
-from utils import *
-
-BLOCK_SIZE = 500
+from utils import execute_search, get_P, get_T, get_output, get_length_file, BLOCK_SIZE, math, read_a_line_from_file, read_many_lines, LINE_SIZE
 
 def linear_search(file_path_P, file_path_T):
     P = get_P(file_path_P)
@@ -18,8 +16,8 @@ def linear_search(file_path_P, file_path_T):
             if int(element) in P:
                 found_element = element.zfill(9) + '\n'
                 output.write(found_element)
-    output.close()
     file_T.close()
+    output.close()
     return 0
 
 execute_search(linear_search)

@@ -2,14 +2,13 @@
 # h: fin del espacio de búsqueda
 # Requiere que la propiedad sea "monótona": es falsa hasta cierto punto. Después de ese punto y en adelante es siempre verdadera.
 # Busca el primer valor entre l y h que hace a la propiedad verdadera.
-from utils import *
+from utils import execute_search, get_P, get_T, get_output, get_length_file, read_a_line_from_file
 
 def binary_search(path_p, path_t):
   
   P = get_P(path_p)
   ft = get_T(path_t)
   output = get_output("output_binary.txt")
-
   # We need to iterate over P loaded in memory
   for p in P:
     l = 0
@@ -26,8 +25,8 @@ def binary_search(path_p, path_t):
         num = current_num.zfill(9) + '\n'
         output.write(num)   
         break
-  output.close()
   ft.close()
+  output.close()
   return 0
 
-#execute_search(binary_search)
+execute_search(binary_search)
