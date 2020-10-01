@@ -25,7 +25,8 @@ for k in range(MIN, MAX):
     current_dict[k] = {"current_dict": sum(tmp), 
                        "promedio": statistics.mean(tmp),
                        "std": statistics.stdev(tmp)}
-
+    msg = "[K=" + str(k)+ "] DONE"
+    print(msg)
 with open('experiment_for_k.json', 'w+') as fp:
     json.dump(current_dict, fp)
 fp.close()
