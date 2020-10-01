@@ -14,7 +14,8 @@ def binary_search(path_p, path_t):
     l = 0
     h = get_length_file(path_t) - 1
     m = 0
-    while (l <= h):
+    stop = False
+    while (l <= h and not stop):
       m = (l + h) // 2
       current_num = read_a_line_from_file(ft, m)
       if p < int(current_num):
@@ -24,7 +25,7 @@ def binary_search(path_p, path_t):
       else:
         num = current_num.zfill(9) + '\n'
         output.write(num)   
-        break
+        stop = True
   ft.close()
   output.close()
   return 0
