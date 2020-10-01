@@ -15,8 +15,7 @@ def linear_search_plus_merge(file_path_P, file_path_T):
         lines = read_many_lines(start_reading_from, number_of_lines, file_T)
         index_P = 0
         index_T = 0
-        next = True
-        while index_P < len(P) and index_T < len(lines) and next:
+        while index_P < len(P) and index_T < len(lines):
             element_P = P[index_P]
             element_T = lines[index_T]
             if element_P > int(element_T):
@@ -26,7 +25,8 @@ def linear_search_plus_merge(file_path_P, file_path_T):
             else:
                 found_element = element_T.zfill(9) + '\n'
                 output.write(found_element)
-                next = False
+                index_T += 1
+                index_P += 1
     file_T.close()
     output.close()
     return 0
