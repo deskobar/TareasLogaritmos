@@ -5,7 +5,7 @@ def linear_search_plus_merge(file_path_P, file_path_T):
     P.sort()
     file_T = get_T(file_path_T)
     length_T = get_length_file(file_path_T)
-    output = get_output("output_linear_plus_merge.txt")
+    output = get_output("output_linear_search_plus_merge.txt")
     for iteration_index in range(0, length_T, BLOCK_SIZE):
         start_reading_from = LINE_SIZE * iteration_index
         if iteration_index + BLOCK_SIZE > length_T:

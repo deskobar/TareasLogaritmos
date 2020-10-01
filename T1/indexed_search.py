@@ -4,6 +4,8 @@ def binary_search_modified(arr, x, n):
     low = 0
     mid = 0
     high = n
+    if n == 0:
+        return 0
     while (low < high):
         mid = low + (high - low) // 2
         if x <= arr[mid]:
@@ -26,8 +28,7 @@ def indexed_search(path_p, path_t):
     n_blocks = math.ceil(len_t / BLOCK_SIZE)
     for i in range(n_blocks):
         line_str = read_a_line_from_file(T, i * BLOCK_SIZE)
-        if line_str != '':
-            S.append(int(line_str))
+        S.append(int(line_str))
     for searched in P:
         s_interval_id = binary_search_modified(S, searched, len(S) - 1)
         if s_interval_id != -1:

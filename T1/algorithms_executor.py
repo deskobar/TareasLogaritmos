@@ -10,4 +10,6 @@ def algorithms_executor():
     algorithms = [binary_search, linear_search, indexed_search, linear_search_plus_binary, linear_search_plus_merge]
     for algorithm in algorithms:
         execute_search(algorithm)
-    compare_output_files
+    compare_output_files()
+
+algorithms_executor()
