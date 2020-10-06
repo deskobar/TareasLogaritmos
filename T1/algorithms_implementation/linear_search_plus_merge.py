@@ -1,11 +1,12 @@
 from utils import execute_search, get_P, get_T, get_output, get_length_file, BLOCK_SIZE, math, read_a_line_from_file, read_many_lines, LINE_SIZE
 
 def linear_search_plus_merge(file_path_P, file_path_T):
+    memory_accesses = 0
     P = get_P(file_path_P)
     P.sort()
     file_T = get_T(file_path_T)
     length_T = get_length_file(file_path_T)
-    output = get_output("output_linear_search_plus_merge.txt")
+    output = get_output('output_files/output_linear_search_plus_merge.txt')
     for iteration_index in range(0, length_T, BLOCK_SIZE):
         start_reading_from = LINE_SIZE * iteration_index
         if iteration_index + BLOCK_SIZE > length_T:
@@ -13,6 +14,7 @@ def linear_search_plus_merge(file_path_P, file_path_T):
         else:
             number_of_lines = BLOCK_SIZE
         lines = read_many_lines(start_reading_from, number_of_lines, file_T)
+        memory_accesses += 1
         index_P = 0
         index_T = 0
         while index_P < len(P) and index_T < len(lines):
@@ -29,6 +31,6 @@ def linear_search_plus_merge(file_path_P, file_path_T):
                 index_P += 1
     file_T.close()
     output.close()
-    return 0
+    return memory_accesses
 
 execute_search(linear_search_plus_merge)

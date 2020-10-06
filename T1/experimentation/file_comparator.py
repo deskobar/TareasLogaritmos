@@ -16,15 +16,15 @@ def are_all_files_equal(file_array):
         file_element = file_array[index]
         if not are_files_equal(first_file, file_element):
             response = False
-            print("{} is not equal to the rest of the files".format(file_element))
+            print('{} is not equal to the rest of the files'.format(file_element))
             break
         index += 1
     return response
 
 def compare_output_files():
-    file_array = ['output_binary.txt', 'output_linear.txt', 'output_indexed.txt', 'output_linear_search_plus_binary.txt', 'output_linear_search_plus_merge.txt']
+    file_array = ['output_files/output_binary.txt', 'output_files/output_linear.txt', 'output_files/output_indexed.txt', 'output_files/output_linear_search_plus_binary.txt', 'output_files/output_linear_search_plus_merge.txt']
     response = are_all_files_equal(file_array)
     if response:
-        print ("[*] ALL OUTPUT FILES ARE EQUAL")
+        print ('[*] ALL OUTPUT FILES ARE EQUAL')
     else:
-        print ("[*] ALL OUTPUT FILES ARE NOT EQUAL")
+        print ('[*] ALL OUTPUT FILES ARE NOT EQUAL')
