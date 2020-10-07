@@ -30,13 +30,6 @@ def o_bi_p(T, k):
     lg = math.log(T/500, 2.0)
     return T/k*(lg + 500)
 
-"""
-O(n**2), O(n)
-n**2 = n
-n** - n = 0
-n(n - 1) = 0
-"""
-
 k_range = range(9000, 10500)
 x = []
 y_bs = []
@@ -53,7 +46,7 @@ for k in k_range:
 plt.plot(x, y_bs, 'r', label='Búsqueda binaria') # plotting t, a separately 
 plt.plot(x, y_bl, 'g', label='Búsqueda lineal') # plotting t, a separately 
 plt.plot(x, y_bi, 'b', label='Búsqueda indexada') # plotting t, a separately 
-plt.title("Total de operaciones I/Os teórico en los diferentes algoritmos en función del valor k=|T|/|P|")
+plt.title("Total de operaciones I/Os teórico en los diferentes algoritmos\n en función del valor k=|T|/|P|")
 plt.xlabel("Valor de k (10^3)")
 plt.ylabel("Número de operaciones I/O (10^3)")
 plt.legend()

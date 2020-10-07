@@ -20,20 +20,28 @@ algorithms = [binary_search, linear_search, indexed_search, linear_search_plus_b
 
 for algorithm in algorithms:
     for k in range(MIN, MAX):
-        memory_accesses_tmp = []
+        input_tmp = []
+        output_tmp = []
         time_tmp = []
         for current_k in range(k):
             generator(P_LEN, T_LEN)
             ti = time.time()
-            memory_accesses = algorithm(P_PATH, T_PATH)
+            reads, writes = algorithm(P_PATH, T_PATH)
             tf = time.time()
             dt = tf - ti
-            memory_accesses_tmp.append(memory_accesses)
+            input_tmp.append(reads)
+            output_tmp.append(writes)
             time_tmp.append(dt)
         current_dict[k] = {
-            'I/Os_sum': sum(memory_accesses_tmp),
-            'I/Os_mean': statistics.mean(memory_accesses_tmp),
-            'I/Os_std': statistics.stdev(memory_accesses_tmp),
+            'Input_sum': sum(input_tmp),
+            'Input_mean': statistics.mean(input_tmp),
+            'Input_sted': statistics.stdev(input_tmp),
+            'Output_sum': sum(output_tmp),
+            'Output_mean': statistics.mean(output_tmp),
+            'Output_sted': statistics.stdev(output_tmp), 
+            'I/Os_sum': sum(input_tmp) + sum(output_tmp),
+            'I/Os_mean': statistics.mean(input_tmp+output_tmp),
+            'I/Os_std': statistics.stdev(input_tmp+output_tmp),
             'time_sum': sum(time_tmp), 
             'time_mean': statistics.mean(time_tmp),
             'time_std': statistics.stdev(time_tmp),

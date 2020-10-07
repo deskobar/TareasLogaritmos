@@ -18,7 +18,9 @@ def binary_search_general(arr, x, n):
         return -1
 
 def linear_search_plus_binary(file_path_P, file_path_T):
-    memory_accesses = 0
+    read_accesses = 0
+    write_accesses = 0
+    to_write = []
     P = get_P(file_path_P)
     P_len = len(P)
     P.sort()
@@ -32,15 +34,22 @@ def linear_search_plus_binary(file_path_P, file_path_T):
         else:
             number_of_lines = BLOCK_SIZE
         lines = read_many_lines(start_reading_from, number_of_lines, file_T)
-        memory_accesses += 1
+        read_accesses += 1
         for element in lines:
-            current = int(element)
+            current = element
             if binary_search_general(P, current, P_len - 1) != -1:
                 found_element = element.zfill(9) + '\n'
-                output.write(found_element)
+                to_write.append(found_element)
+                if len(to_write) * LINE_SIZE == BLOCK_SIZE:
+                    output.write(''.join(to_write))
+                    write_accesses += 1
+                    to_write = []  
     file_T.close()
+    if(len(to_write) != 0):
+        output.write(''.join(to_write))
+        write_accesses += 1
     output.close()
-    return memory_accesses
+    return read_accesses, write_accesses
 
 execute_search(linear_search_plus_binary)
 
