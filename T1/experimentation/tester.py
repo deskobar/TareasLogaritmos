@@ -1,15 +1,19 @@
 import statistics
 from experimentation.generator import generator
-from algorithms_implementation.binary_search import binary_search
-from algorithms_implementation.linear_search import linear_search
-from algorithms_implementation.indexed_search import indexed_search
-from algorithms_implementation.linear_search_plus_binary import linear_search_plus_binary
-from algorithms_implementation.linear_search_plus_merge import linear_search_plus_merge
+from binary_search import binary_search
+from linear_search import linear_search
+from indexed_search import indexed_search
+from linear_search_plus_binary import linear_search_plus_binary
+from linear_search_plus_merge import linear_search_plus_merge
 import json
 import time
 
+"""
+SE DEBE LLAMAR DESDE T1 DE LA SIGUIENTE FORMA
+python -m experimentation.tester P_test.txt T_test.txt
+"""
 MIN = 2
-MAX = 26
+MAX = 3
 P_LEN = '10000'
 P_PATH = 'P_test.txt'
 T_LEN = '1000000'
@@ -17,7 +21,7 @@ T_PATH = 'T_test.txt'
 
 current_dict = {}
 algorithms = [binary_search, linear_search, indexed_search, linear_search_plus_binary, linear_search_plus_merge]
-
+algorithms = [binary_search, indexed_search, linear_search_plus_binary, linear_search_plus_merge]
 for algorithm in algorithms:
     for k in range(MIN, MAX):
         input_tmp = []
@@ -48,7 +52,7 @@ for algorithm in algorithms:
         }
         msg = '[K = {}] DONE'.format(str(k))
         print(msg)
-    file_name = 'experiment_for_k_{}.json'.format(algorithm)
+    file_name = 'output_exp/experiment_for_k_{}.json'.format(algorithm.__name__)
     with open(file_name, 'w+') as fp:
         json.dump(current_dict, fp)
     fp.close()
