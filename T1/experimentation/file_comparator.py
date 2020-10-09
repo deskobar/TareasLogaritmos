@@ -22,7 +22,7 @@ def are_all_files_equal(file_array):
     return response
 
 def compare_output_files():
-    file_array = ['output_files/output_binary.txt', 'output_files/output_linear.txt', 'output_files/output_indexed.txt', 'output_files/output_linear_search_plus_binary.txt', 'output_files/output_linear_search_plus_merge.txt']
+    file_array = ['output_files/output_binary.txt', 'output_files/output_indexed.txt', 'output_files/output_linear_search_plus_binary.txt', 'output_files/output_linear_search_plus_merge.txt']
     response = are_all_files_equal(file_array)
     if response:
         print ('[*] ALL OUTPUT FILES ARE EQUAL')
