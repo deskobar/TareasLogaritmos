@@ -2,9 +2,13 @@ from pathlib import Path
 import sys
 import time
 import math
+import os
 
 BLOCK_SIZE = 500
-ENDLINE_SIZE = sys.getsizeof('\n') - sys.getsizeof('') 
+if os.name == 'nt':
+  ENDLINE_SIZE = sys.getsizeof('\r\n') - sys.getsizeof('') 
+else:
+  ENDLINE_SIZE = sys.getsizeof('\n') - sys.getsizeof('') 
 READ_SIZE = sys.getsizeof('000000000') - sys.getsizeof('') 
 LINE_SIZE =  READ_SIZE + ENDLINE_SIZE
 
@@ -22,7 +26,7 @@ def read_a_line_from_file(file, line):
 
 def read_many_lines(start, number_of_lines, file_object):
   file_object.seek(start)
-  one_big_line = file_object.read(LINE_SIZE * number_of_lines - ENDLINE_SIZE)
+  one_big_line = file_object.read(LINE_SIZE * number_of_lines)
   lines = one_big_line.split('\n')
   return lines
 
@@ -37,7 +41,7 @@ def get_P(path_p):
     str_chunk = read_many_lines(start_reading_from, BLOCK_SIZE, P_file)
     for str_number in str_chunk:
       if str_number != '':
-        P_array[index_P_array] = int(str_number)
+        P_array[index_P_array] = str_number
         index_P_array += 1
   P_file.close()
   return P_array
@@ -54,4 +58,4 @@ def execute_search(algorithm):
   algorithm(args[1], args[2])
   delta_t = time.time() - t_i
   print('[*] ' + algorithm.__name__.upper() + ' FINISHED SUCCESSFULLY')
-  print('[*] TIME ELAPSED: ' + str(delta_t) + '' (s)')
+  print('[*] TIME ELAPSED: ' + str(delta_t) + ' (s)')

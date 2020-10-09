@@ -4,9 +4,9 @@ import sys
 
 MIN = 1
 MAX = 10**9
-P_PATH = 'P_test.txt'
-T_PATH = 'T_test.txt'
-TMP_PATH = '.tmp.txt'
+P_PATH = 'input_files/P.txt'
+T_PATH = 'input_files/T.txt'
+TMP_PATH = 'input_files/.tmp.txt'
 
 
 def generator(p, t):
