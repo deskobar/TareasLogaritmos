@@ -3,6 +3,7 @@
 # Requiere que la propiedad sea "monótona": es falsa hasta cierto punto. Después de ese punto y en adelante es siempre verdadera.
 # Busca el primer valor entre l y h que hace a la propiedad verdadera.
 from utils import execute_search, get_P, get_T, get_output, get_length_file, read_a_line_from_file, LINE_SIZE, BLOCK_SIZE
+
 def binary_search(path_p, path_t):
   read_accesses = 0
   write_accesses = 0

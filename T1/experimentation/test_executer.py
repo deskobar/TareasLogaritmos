@@ -5,6 +5,7 @@ from algorithms.linear_search import linear_search
 from algorithms.indexed_search import indexed_search
 from algorithms.linear_search_plus_binary import linear_search_plus_binary
 from algorithms.linear_search_plus_merge import linear_search_plus_merge
+from datetime import datetime
 import json
 import time
 
@@ -12,21 +13,22 @@ import time
 SE DEBE LLAMAR DESDE T1 DE LA SIGUIENTE FORMA
 python -m experimentation.tester P.txt T.txt
 """
-MIN = 2
-MAX = 10
+MAX = 8
 #P_LEN = '10000'
 P_PATH = 'input_files/P.txt'
-T_LEN = '1000000'
 T_PATH = 'input_files/T.txt'
-P_LENS = [100000] # '10000' ya fue evaluado
-current_dict = {}
-#algorithms = [binary_search, linear_search, indexed_search, linear_search_plus_binary, linear_search_plus_merge]
-algorithms = [linear_search]
-for P_LEN in P_LENS:
-    for algorithm in algorithms:
+P_LEN = 10000
+T_LENS = [10**6, 10**7, 1.12*10**7, 1.15*10**7, 1.18*10**7, 10**8, 10**9]
+T_LENS.sort()
+algorithms = [binary_search, linear_search, indexed_search, linear_search_plus_binary, linear_search_plus_merge]
+#algorithms = [indexed_search]
+for algorithm in algorithms:
+    algorithm_dict = {}
+    for T_LEN in T_LENS:    
         input_tmp = []
         output_tmp = []
         time_tmp = []
+        current_dict = {}
         for current_k in range(MAX):
             generator(P_LEN, T_LEN)
             ti = time.time()
@@ -42,9 +44,17 @@ for P_LEN in P_LENS:
                 'I/Os': reads+writes,
                 'time': dt  
             }
-            msg = '[{}][K = {}] DONE'.format(algorithm.__name__.upper(), str(current_k).zfill(2))
+            # [19.00.12][LINEAR_SEARCH][10**9][K=10]
+            msg = '[{}][{}][{}][K={}] DONE'.format(datetime.now().time(), algorithm.__name__.upper(), T_LEN, current_k)
             print(msg)
-        file_name = 'output_exp/[#rep={}][P={}] {}.json'.format(str(10), P_LEN, algorithm.__name__)
-        with open(file_name, 'w+') as fp:
-            json.dump(current_dict, fp)
-        fp.close()
+        algorithm_dict[int(T_LEN)] = current_dict
+    # quiero que se guarde como nombre algoritmo        
+    file_name = 'output_exp/{}.json'.format(algorithm.__name__)
+    with open(file_name, 'w+') as fp:
+        json.dump(algorithm_dict, fp)
+    fp.close()
+
+"""
+Quiero que se guarde asi:
+nombre algoritmo = {valor de T: {input, output, i/o, time}}
+"""
