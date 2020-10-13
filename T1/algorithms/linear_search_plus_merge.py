@@ -1,4 +1,4 @@
-from utils import execute_search, get_P, get_T, get_output, get_length_file, BLOCK_SIZE, math, read_a_line_from_file, read_many_lines, LINE_SIZE
+from utils import execute_search, get_P, get_T, get_output, get_length_file, BLOCK_SIZE, math, read_a_line_from_file, read_many_lines, LINE_SIZE, B
 
 def linear_search_plus_merge(file_path_P, file_path_T):
     read_accesses = 0

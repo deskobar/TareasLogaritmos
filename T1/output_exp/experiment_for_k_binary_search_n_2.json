@@ -1,0 +1,34 @@
+{
+    "0": {
+        "2": {
+            "Input_sum": 399034,
+            "Input_mean": 199517,
+            "Input_sted": 15.556349186104045,
+            "Output_sum": 2,
+            "Output_mean": 1,
+            "Output_std": 0.0,
+            "I/Os_sum": 399036,
+            "I/Os_mean": 199518,
+            "I/Os_std": 15.556349186104045,
+            "time_sum": 2.1481730937957764,
+            "time_mean": 1.0740865468978882,
+            "time_std": 0.05963357595806396
+        }
+    },
+    "1": {
+        "2": {
+            "Input_sum": 399034,
+            "Input_mean": 199517,
+            "Input_sted": 15.556349186104045,
+            "Output_sum": 2,
+            "Output_mean": 1,
+            "Output_std": 0.0,
+            "I/Os_sum": 399036,
+            "I/Os_mean": 199518,
+            "I/Os_std": 15.556349186104045,
+            "time_sum": 2.1481730937957764,
+            "time_mean": 1.0740865468978882,
+            "time_std": 0.05963357595806396
+        }
+    }
+}

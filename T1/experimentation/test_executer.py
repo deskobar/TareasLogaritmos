@@ -13,15 +13,17 @@ import time
 SE DEBE LLAMAR DESDE T1 DE LA SIGUIENTE FORMA
 python -m experimentation.tester P.txt T.txt
 """
-MAX = 8
+MAX = 14
 #P_LEN = '10000'
 P_PATH = 'input_files/P.txt'
 T_PATH = 'input_files/T.txt'
 P_LEN = 10000
-T_LENS = [10**6, 10**7, 1.12*10**7, 1.15*10**7, 1.18*10**7, 10**8, 10**9]
+T_LENS = [10**6, 10**7, 1.12*10**7, 1.15*10**7, 1.18*10**7, 1.5*10**7]
 T_LENS.sort()
-algorithms = [binary_search, linear_search, indexed_search, linear_search_plus_binary, linear_search_plus_merge]
-#algorithms = [indexed_search]
+#algorithms = [binary_search, linear_search, indexed_search, linear_search_plus_binary, linear_search_plus_merge]
+
+# done: binary, indexed, linear_binary
+algorithms = [linear_search]
 for algorithm in algorithms:
     algorithm_dict = {}
     for T_LEN in T_LENS:    
@@ -30,7 +32,7 @@ for algorithm in algorithms:
         time_tmp = []
         current_dict = {}
         for current_k in range(MAX):
-            generator(P_LEN, T_LEN)
+            generator(P_LEN, int(T_LEN))
             ti = time.time()
             reads, writes = algorithm(P_PATH, T_PATH)
             tf = time.time()
