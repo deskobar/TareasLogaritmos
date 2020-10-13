@@ -20,6 +20,20 @@ def o_bi_s(k):
     r = P_SIZE*k/B
     return l + r
 
+# O(P*log2(T))
+def o_bs_s_t(t):
+    lg = math.log(t, 2.0)
+    return P_SIZE*lg
+
+# O(T/k)
+def o_bl_s_t(t):
+    return t/B
+
+# O(B + T/500)
+def o_bi_s_t(t):
+    l = P_SIZE
+    r = t/B
+    return l + r
 
 k_range = range(1000, 1500)
 x = []
@@ -34,7 +48,7 @@ for k in k_range:
     y_bs.append(o_bs_s(k))
     y_bl.append(o_bl_s(k))
     y_bi.append(o_bi_s(k))
-
+"""
 plt.plot(x, y_bs, 'r', label='Búsqueda binaria') # plotting t, a separately 
 plt.plot(x, y_bl, 'g', label='Búsqueda lineal') # plotting t, a separately 
 plt.plot(x, y_bi, 'b', label='Búsqueda indexada') # plotting t, a separately 
@@ -44,3 +58,4 @@ plt.ylabel("Número de operaciones I/O")
 plt.legend() 
 plt.savefig("valor de $\\rho$")
 plt.show()
+"""

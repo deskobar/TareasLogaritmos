@@ -14,16 +14,16 @@ python -m experimentation.tester P.txt T.txt
 """
 MIN = 2
 MAX = 26
-N = 5
+N = 3
 P_LEN = '10000'
 P_PATH = 'input_files/P.txt'
 T_LEN = '1000000'
 T_PATH = 'input_files/T.txt'
 
-current_dict = {}
 algorithms = [binary_search]
 final_dict = {}
 for n in range(N):
+    current_dict = {}
     for algorithm in algorithms:
         for k in range(MIN, MAX):
             input_tmp = []
@@ -57,7 +57,7 @@ for n in range(N):
             msg = '[N = {}][{}][K = {}] DONE'.format(n, algorithm.__name__.upper(), str(k))
             print(msg)
     final_dict[str(n)] = current_dict
-file_name = 'output_exp/experiment_for_k_{}_n_{}.json'.format(algorithm.__name__, N)
+file_name = 'output_exp/final_experiment_for_k_{}_n_{}.json'.format(algorithm.__name__, N)
 with open(file_name, 'w+') as fp:
     json.dump(final_dict, fp)
 fp.close()
