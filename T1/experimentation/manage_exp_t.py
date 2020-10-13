@@ -93,25 +93,14 @@ for t in T_SIZE:
     y_linear_plus_merge_t.append(statistics.mean(current_linear_plus_merge_t))
     y_linear_plus_merge_t_std.append(statistics.stdev(current_linear_plus_merge_t))
 
-plot_style = '-*'
-plt.subplot(1, 2, 1)
-plt.plot(T_SIZE, y_binary_io, plot_style, color='red', label="Búsqueda binaria")
-plt.plot(T_SIZE, y_indexed_io, plot_style, color='green', label="Búsqueda indexada")
-plt.plot(T_SIZE, y_linear_io, plot_style, color='blue', label="Búsqueda lineal")
-plt.title("Cantidad de IO/s experimental promedio para los distintos algoritmos de búsqueda")
-plt.xlabel("Tamaño de T (líneas)")
-plt.ylabel("soy un eje y")
-plt.legend()
-plot_style = '-*'
-plt.subplot(1, 2, 2)
+plot_style = '--*'
 plt.plot(T_SIZE, y_binary_t, plot_style, color='red', label="Búsqueda binaria")
 plt.plot(T_SIZE, y_indexed_t, plot_style, color='green', label="Búsqueda indexada")
 plt.plot(T_SIZE, y_linear_t, plot_style, color='blue', label="Búsqueda lineal")
-plt.title("Duración experimental promedio para los distintos algoritmos de búsqueda")
-plt.xlabel("Tamaño de T (líneas)")
+plt.title("Duración experimental promedio para los distintos algoritmos\n de búsqueda para |P|=10^4 y diferentes |T|")
+plt.xlabel("|T| (líneas)")
 plt.ylabel("Tiempo en segundos (escala logarítmica)")
 plt.yscale("log")
 plt.legend()
+plt.savefig('visualizations/exp_t.png', dpi=300)
 plt.show()
-
-

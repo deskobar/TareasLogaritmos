@@ -1,8 +1,6 @@
 import json
 import matplotlib.pyplot as plt
 import statistics
-from experimentation.costo_secundaria import o_bi_s_t, o_bl_s_t, o_bs_s_t
-
 binary_file = open('output_exp/binary_search.json')
 binary_dict = json.load(binary_file)
 indexed_file = open('output_exp/indexed_search.json')
@@ -24,19 +22,16 @@ T_SIZE = [10**6, 10**7, int(1.12*10**7), int(1.15*10**7), int(1.18*10**7), int(1
 
 y_binary_io = []
 y_binary_io_std = []
-y_binary_io_t = []
 y_binary_t = []
 y_binary_t_std = []
 
 y_indexed_io = []
 y_indexed_io_std = []
-y_indexed_io_t = []
 y_indexed_t = []
 y_indexed_t_std = []
 
 y_linear_io = []
 y_linear_io_std = []
-y_linear_io_t = []
 y_linear_t = []
 y_linear_t_std = []  
 
@@ -49,7 +44,7 @@ y_linear_plus_merge_io = []
 y_linear_plus_merge_io_std = []
 y_linear_plus_merge_t = []
 y_linear_plus_merge_t_std = []  
-div = 10000
+
 for t in T_SIZE:
     current_binary_io = []
     current_binary_t = [] 
@@ -73,17 +68,17 @@ for t in T_SIZE:
         current_linear_plus_merge_io.append(linear_plus_merge_dict[str(t)][str(i)]["I/Os"])
         current_linear_plus_merge_t.append(linear_plus_merge_dict[str(t)][str(i)]["time"])
 
-    y_binary_io.append(statistics.mean(current_binary_io)/div)
+    y_binary_io.append(statistics.mean(current_binary_io))
     y_binary_io_std.append(statistics.stdev(current_binary_io))
     y_binary_t.append(statistics.mean(current_binary_t))
     y_binary_t_std.append(statistics.stdev(current_binary_t))
 
-    y_indexed_io.append(statistics.mean(current_indexed_io)/div)
+    y_indexed_io.append(statistics.mean(current_indexed_io))
     y_indexed_io_std.append(statistics.stdev(current_indexed_io))
     y_indexed_t.append(statistics.mean(current_indexed_t))
     y_indexed_t_std.append(statistics.mean(current_indexed_t))
 
-    y_linear_io.append(statistics.mean(current_linear_io)/div)
+    y_linear_io.append(statistics.mean(current_linear_io))
     y_linear_io_std.append(statistics.stdev(current_linear_io))
     y_linear_t.append(statistics.mean(current_linear_t))
     y_linear_t_std.append(statistics.stdev(current_linear_t))
@@ -98,25 +93,16 @@ for t in T_SIZE:
     y_linear_plus_merge_t.append(statistics.mean(current_linear_plus_merge_t))
     y_linear_plus_merge_t_std.append(statistics.stdev(current_linear_plus_merge_t))
 
-teo_range = range(T_SIZE[0], T_SIZE[len(T_SIZE) - 1])
 
-for t in teo_range:
-    y_binary_io_t.append(o_bs_s_t(t)/div)
-    y_indexed_io_t.append(o_bi_s_t(t)/div)
-    y_linear_io_t.append(o_bl_s_t(t)/div)
-
-plot_style_exp = '*'
-plot_style_t = '-'
-plt.plot(T_SIZE, y_binary_io, plot_style_exp, color='red', label="Búsqueda binaria experimental")
-plt.plot(T_SIZE, y_indexed_io, plot_style_exp, color='green', label="Búsqueda indexada experimental")
-plt.plot(T_SIZE, y_linear_io, plot_style_exp, color='blue', label="Búsqueda lineal experimental")
-plt.plot(teo_range, y_binary_io_t, plot_style_t, color='red', label="Búsqueda binaria teórica")
-plt.plot(teo_range, y_indexed_io_t, plot_style_t, color='green', label="Búsqueda indexada teórica")
-plt.plot(teo_range, y_linear_io_t, plot_style_t, color='blue', label="Búsqueda lineal teórica")
-plt.title("Cantidad de operaciones I/O experimentales y teóricas para\n los distintos algoritmos de búsqueda")
-plt.xlabel("|T| (cantidad de líneas)")
-plt.ylabel("Cantidad de operaciones I/O (10^4)")
+plot_style = '--*'
+plt.plot(T_SIZE, y_binary_t, plot_style, color='red', label="Búsqueda binaria")
+plt.plot(T_SIZE, y_indexed_t, plot_style, color='green', label="Búsqueda indexada")
+plt.plot(T_SIZE, y_linear_plus_binary_t, plot_style, color='blue', label="Búsqueda lineal con búsqueda binaria")
+plt.title("Duración experimental promedio de la mejor búsqueda lineal encontrada\n contrastada con los otros algoritmos para |P|=10^4 y diferentes |T|")
+plt.xlabel("|T| (líneas)")
+plt.ylabel("Tiempo (s)")
 plt.legend()
-plt.savefig("visualizations/teo_vs_exp.png", dpi=300)
+plt.savefig("visualizations/mejor_lineal_vs_otros.png", dpi=300)
 plt.show()
+
 

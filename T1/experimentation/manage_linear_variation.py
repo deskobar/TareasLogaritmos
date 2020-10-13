@@ -94,14 +94,15 @@ for t in T_SIZE:
     y_linear_plus_merge_t_std.append(statistics.stdev(current_linear_plus_merge_t))
 
 
-plot_style = '-'
+plot_style = '--*'
 plt.plot(T_SIZE, y_linear_t, plot_style, color='red', label="Búsqueda lineal")
 plt.plot(T_SIZE, y_linear_plus_binary_t, plot_style, color='green', label="Búsqueda lineal con búsqueda binaria")
 plt.plot(T_SIZE, y_linear_plus_merge_t, plot_style, color='blue', label="Búsqueda lineal con merge")
 plt.title("Duración experimental promedio para las modificaciones de la\n búsqueda lineal en cada ejecución para |P|=10^4 y diferentes |T|")
-plt.xlabel("Tamaño de T (líneas)")
-plt.ylabel("Tiempo en segundos")
+plt.xlabel("|T| (líneas)")
+plt.ylabel("Tiempo (s)")
 plt.legend()
+plt.savefig('visualizations/linear_variation.png', dpi=300)
 plt.show()
 
 
