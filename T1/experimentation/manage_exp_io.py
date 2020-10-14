@@ -93,12 +93,15 @@ for t in T_SIZE:
     y_linear_plus_merge_t.append(statistics.mean(current_linear_plus_merge_t))
     y_linear_plus_merge_t_std.append(statistics.stdev(current_linear_plus_merge_t))
 
+rho_list = []
+for t in T_SIZE:
+    rho_list.append(t//10**4 / 1000)
 plot_style = '--*'
-plt.plot(T_SIZE, y_binary_io, plot_style, color='red', label="Búsqueda binaria")
-plt.plot(T_SIZE, y_indexed_io, plot_style, color='green', label="Búsqueda indexada")
-plt.plot(T_SIZE, y_linear_io, plot_style, color='blue', label="Búsqueda lineal")
-plt.title("Cantidad de I/O experimental promedio para los distintos algoritmos\n de búsqueda para |P|=10^4 y diferentes |T|")
-plt.xlabel("|T| (líneas)")
+plt.plot(rho_list, y_binary_io, plot_style, color='red', label="Búsqueda binaria")
+plt.plot(rho_list, y_indexed_io, plot_style, color='green', label="Búsqueda indexada")
+plt.plot(rho_list, y_linear_io, plot_style, color='blue', label="Búsqueda lineal")
+plt.title("Cantidad de I/O experimental promedio para los distintos algoritmos\n de búsqueda para |P|=10^4 y diferentes $\\rho$")
+plt.xlabel("$\\rho$ (10^3)")
 plt.ylabel("Cantidad de I/O (10^4)")
 plt.legend()
 plt.savefig('visualizations/exp_io.png', dpi=300)

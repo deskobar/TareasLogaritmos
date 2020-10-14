@@ -41,21 +41,22 @@ y_bs = []
 y_bl = []
 y_bi = []
 
-div_x = 10000
-div_y = 100000
+xi = 3
+yi = 5
+div_x = 10**xi
+div_y = 10**yi
 for k in k_range:
-    x.append(k)
-    y_bs.append(o_bs_s(k))
-    y_bl.append(o_bl_s(k))
-    y_bi.append(o_bi_s(k))
-"""
+    x.append(k/div_x)
+    y_bs.append(o_bs_s(k)/div_y)
+    y_bl.append(o_bl_s(k)/div_y)
+    y_bi.append(o_bi_s(k)/div_y)
+
 plt.plot(x, y_bs, 'r', label='Búsqueda binaria') # plotting t, a separately 
 plt.plot(x, y_bl, 'g', label='Búsqueda lineal') # plotting t, a separately 
 plt.plot(x, y_bi, 'b', label='Búsqueda indexada') # plotting t, a separately 
 plt.title("Total de operaciones I/Os teórico en los diferentes algoritmos\n en función del valor $\\rho$=|T|/|P|")
-plt.xlabel("Valor de k")
-plt.ylabel("Número de operaciones I/O")
+plt.xlabel("Valor de $\\rho$ (10^{})".format(xi))
+plt.ylabel("Número de operaciones I/O (10^{})".format(yi))
 plt.legend() 
-plt.savefig("valor de $\\rho$")
+plt.savefig("visualizations/valor_rho.png", dpi=300)
 plt.show()
-"""

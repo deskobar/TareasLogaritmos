@@ -93,13 +93,15 @@ for t in T_SIZE:
     y_linear_plus_merge_t.append(statistics.mean(current_linear_plus_merge_t))
     y_linear_plus_merge_t_std.append(statistics.stdev(current_linear_plus_merge_t))
 
-
+rho_list = []
+for t in T_SIZE:
+    rho_list.append(t//10**4 / 1000)
 plot_style = '--*'
-plt.plot(T_SIZE, y_linear_t, plot_style, color='red', label="Búsqueda lineal")
-plt.plot(T_SIZE, y_linear_plus_binary_t, plot_style, color='green', label="Búsqueda lineal con búsqueda binaria")
-plt.plot(T_SIZE, y_linear_plus_merge_t, plot_style, color='blue', label="Búsqueda lineal con merge")
-plt.title("Duración experimental promedio para las modificaciones de la\n búsqueda lineal en cada ejecución para |P|=10^4 y diferentes |T|")
-plt.xlabel("|T| (líneas)")
+plt.plot(rho_list, y_linear_t, plot_style, color='red', label="Búsqueda lineal")
+plt.plot(rho_list, y_linear_plus_binary_t, plot_style, color='green', label="Búsqueda lineal con búsqueda binaria")
+plt.plot(rho_list, y_linear_plus_merge_t, plot_style, color='blue', label="Búsqueda lineal con merge")
+plt.title("Duración experimental promedio para las modificaciones de la\n búsqueda lineal en cada ejecución para |P|=10^4 y diferentes $\\rho$")
+plt.xlabel("$\\rho$ (10^3)")
 plt.ylabel("Tiempo (s)")
 plt.legend()
 plt.savefig('visualizations/linear_variation.png', dpi=300)

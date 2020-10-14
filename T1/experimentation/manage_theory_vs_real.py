@@ -98,23 +98,29 @@ for t in T_SIZE:
     y_linear_plus_merge_t.append(statistics.mean(current_linear_plus_merge_t))
     y_linear_plus_merge_t_std.append(statistics.stdev(current_linear_plus_merge_t))
 
-teo_range = range(T_SIZE[0], T_SIZE[len(T_SIZE) - 1])
+rho_list = []
+for t in T_SIZE:
+    rho_list.append(t//10**4 / 1000)
 
+teo_range = range(T_SIZE[0], T_SIZE[len(T_SIZE) - 1], 100)
 for t in teo_range:
     y_binary_io_t.append(o_bs_s_t(t)/div)
     y_indexed_io_t.append(o_bi_s_t(t)/div)
     y_linear_io_t.append(o_bl_s_t(t)/div)
 
+new_teo_range = []
+for t in teo_range:
+    new_teo_range.append(t/10**4 / 1000)
 plot_style_exp = '*'
 plot_style_t = '-'
-plt.plot(T_SIZE, y_binary_io, plot_style_exp, color='red', label="Búsqueda binaria experimental")
-plt.plot(T_SIZE, y_indexed_io, plot_style_exp, color='green', label="Búsqueda indexada experimental")
-plt.plot(T_SIZE, y_linear_io, plot_style_exp, color='blue', label="Búsqueda lineal experimental")
-plt.plot(teo_range, y_binary_io_t, plot_style_t, color='red', label="Búsqueda binaria teórica")
-plt.plot(teo_range, y_indexed_io_t, plot_style_t, color='green', label="Búsqueda indexada teórica")
-plt.plot(teo_range, y_linear_io_t, plot_style_t, color='blue', label="Búsqueda lineal teórica")
-plt.title("Cantidad de operaciones I/O experimentales y teóricas para\n los distintos algoritmos de búsqueda")
-plt.xlabel("|T| (cantidad de líneas)")
+plt.plot(rho_list, y_binary_io, plot_style_exp, color='red', label="Búsqueda binaria experimental")
+plt.plot(rho_list, y_indexed_io, plot_style_exp, color='green', label="Búsqueda indexada experimental")
+plt.plot(rho_list, y_linear_io, plot_style_exp, color='blue', label="Búsqueda lineal experimental")
+plt.plot(new_teo_range, y_binary_io_t, plot_style_t, color='red', label="Búsqueda binaria teórica")
+plt.plot(new_teo_range, y_indexed_io_t, plot_style_t, color='green', label="Búsqueda indexada teórica")
+plt.plot(new_teo_range, y_linear_io_t, plot_style_t, color='blue', label="Búsqueda lineal teórica")
+plt.title("Cantidad de operaciones I/O experimentales y teóricas para\n los distintos algoritmos de búsqueda para |P|=10^4 y diferentes $\\rho$")
+plt.xlabel("$\\rho$ (10^3)")
 plt.ylabel("Cantidad de operaciones I/O (10^4)")
 plt.legend()
 plt.savefig("visualizations/teo_vs_exp.png", dpi=300)

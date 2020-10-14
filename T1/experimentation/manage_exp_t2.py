@@ -93,19 +93,17 @@ for t in T_SIZE:
     y_linear_plus_merge_t.append(statistics.mean(current_linear_plus_merge_t))
     y_linear_plus_merge_t_std.append(statistics.stdev(current_linear_plus_merge_t))
 
-
 rho_list = []
 for t in T_SIZE:
     rho_list.append(t//10**4 / 1000)
 plot_style = '--*'
 plt.plot(rho_list, y_binary_t, plot_style, color='red', label="Búsqueda binaria")
 plt.plot(rho_list, y_indexed_t, plot_style, color='green', label="Búsqueda indexada")
-plt.plot(rho_list, y_linear_plus_binary_t, plot_style, color='blue', label="Búsqueda lineal con búsqueda binaria")
-plt.title("Duración experimental promedio de la mejor búsqueda lineal encontrada\n contrastada con los otros algoritmos para |P|=10^4 y diferentes $\\rho$")
-plt.xlabel("Valor de $\\rho$ (10^3)")
-plt.ylabel("Tiempo (s)")
+plt.plot(rho_list, y_linear_t, plot_style, color='blue', label="Búsqueda lineal")
+plt.title("Duración experimental promedio para los distintos algoritmos\n de búsqueda para $\\rho$=|T|/|P|")
+plt.xlabel("$\\rho$ (10^3)")
+plt.ylabel("Tiempo en segundos (escala logarítmica)")
+plt.yscale("log")
 plt.legend()
-plt.savefig("visualizations/mejor_lineal_vs_otros.png", dpi=300)
+#plt.savefig('visualizations/exp_t2.png', dpi=300)
 plt.show()
-
-
