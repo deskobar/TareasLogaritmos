@@ -1,3 +1,5 @@
+# Por favor, leer detenidamente.
+
 Esta tarea solo funciona en linux, se esperaba funcionara en todos los SO, pero fracasamos miserablemente.
 
 Si bien el SO en el que fue desarrollada no es el mismo de Anakena, se puede correr y probar ahí.
@@ -6,4 +8,8 @@ Hay un Makefile, pero se pide encarecidamente no traten de usarlo, puesto que no
 
 Adicionalmente, el archivo generator.py que fue requerido, arroja los archivos a la carpeta input_files, sin embargo, se puede colocar algún P o T en la carpeta raíz del proyecto, valga decir, aquí o también se puede llamar de la siguiente forma:
 
-# python indexedSearch.py input_files/P.txt input_files/T.txt
+```bash
+python indexedSearch.py input_files/P.txt input_files/T.txt
+```
+
+Esto aplica tanto para la linearSearch.py y binarySearch.py, en el caso de las variaciones de la búsqueda lineal, no hay un ejecutable como tal de ellas.
