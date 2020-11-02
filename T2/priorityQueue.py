@@ -1,3 +1,5 @@
+import math
+
 '''
 PriorityQueueInterface
 pseudo-interfaz para implementar colas de prioridad
@@ -30,7 +32,17 @@ class BinaryHeap(PriorityQueueInterface):
         self.n = 0
     
     def extract_min(self):
-        pass
+        current_min = self.min
+        self.tree[self.min_pos] = self.tree[self.n - 1]
+        self.tree.pop()
+        self.n -= 1
+        h = self._get_height()
+        floor = 2**(h - 1)
+        basement = floor // 2
+        elements_on_h_level = self.n - floor
+        for i in range(floor - math.ceil(elements_on_h_level // 2) + elements_on_h_level, self.n):
+
+
 
     def insert(self, x, k):
         self.tree.append((x, k))
@@ -61,13 +73,24 @@ class BinaryHeap(PriorityQueueInterface):
         if self.min > k:
             self.min = k
             self.min_pos = aux_1 - 1
-
-
+    
+    def _get_height(self):
+        if self.n == 0:
+            return 0
+        k = 1
+        logn = 0
+        halfn = self.n // 2
+        while k <= halfn:
+            logn += 1
+            k += k
+        return logn
 
 
 class FibonacciHeap(PriorityQueueInterface):
 
     def __init__(self) -> None:
+        self.min = None
+        self.tree = []
         pass
 
     def extract_min(self):
