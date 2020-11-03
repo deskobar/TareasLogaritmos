@@ -1,6 +1,5 @@
-#import priorityQueue as queue
+import priorityQueue as queue
 import sys
-import wayando as way
 
 def dijkstra(graph, start, queue):
     distances = {}
@@ -8,16 +7,13 @@ def dijkstra(graph, start, queue):
         distances[node] = float('infinity')
         queue.insert(node, float('infinity'))
     distances[start] = 0
-    #queue.decrease_key(start, 0)
+    queue.decrease_key(start, 0)
     while not queue.isEmpty():
-        min_node = queue.extract_min()
-        current_node = min_node.key
-        current_distance = min_node.value
+        current_node, current_distance = queue.extract_min()
         for neighbor, weight in graph[current_node].items():
             distance = current_distance + weight;
             if distances[neighbor] > distance:
                 distances[neighbor] = distance
-                
                 queue.decrease_key(neighbor, distance)
     return " ".join([str(n) for n in distances.values()])
 
@@ -33,13 +29,11 @@ def dijkstra_controller():
     print(graph)
     start = int(input())
     if sys.argv[1] == "FibonacciHeap":
-        q = way.FibonacciHeap()
-        q.insert(start, 0)
-        print(dijkstra(graph, start, q))
-        #dijkstra(graph, start, queue.FibonacciHeap(vertices))
-    #else:
-        #dijkstra(graph, start, queue.BinaryHeap(vertices))
+        dijkstra(graph, start, queue.FibonacciHeap(vertices))
+    else:
+        dijkstra(graph, start, queue.BinaryHeap(vertices))
      
+    
 dijkstra_controller()
 
 
@@ -58,7 +52,10 @@ El grafo deberia tener la siguiente forma:
 Es decir un diccionario, cuyas key sean los elementos y cuyo valor
 sea otro dict que tendrá por key el nodo con el que conecta y como valor
 el peso que hay.
+"""
 
+
+"""
 Input de prueba
 
 6 10
