@@ -8,7 +8,7 @@ def dijkstra(graph, start, queue):
         queue.insert(node, float('infinity'))
     distances[start] = 0
     queue.decrease_key(start, 0)
-    while not queue.isEmpty():
+    while not queue.empty():
         current_node, current_distance = queue.extract_min()
         for neighbor, weight in graph[current_node].items():
             distance = current_distance + weight;
@@ -29,11 +29,11 @@ def dijkstra_controller():
     print(graph)
     start = int(input())
     if sys.argv[1] == "FibonacciHeap":
-        dijkstra(graph, start, queue.FibonacciHeap(vertices))
+        queuexd = queue.FibonacciHeap()
     else:
-        dijkstra(graph, start, queue.BinaryHeap(vertices))
+        queuexd = queue.BinaryHeap()
+    print(dijkstra(graph, start, queuexd))
      
-    
 dijkstra_controller()
 
 
