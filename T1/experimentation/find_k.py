@@ -14,44 +14,50 @@ python -m experimentation.tester P.txt T.txt
 """
 MIN = 2
 MAX = 26
+N = 3
 P_LEN = '10000'
 P_PATH = 'input_files/P.txt'
 T_LEN = '1000000'
 T_PATH = 'input_files/T.txt'
 
-current_dict = {}
 algorithms = [binary_search]
-for algorithm in algorithms:
-    for k in range(MIN, MAX):
-        input_tmp = []
-        output_tmp = []
-        time_tmp = []
-        for current_k in range(k):
-            generator(P_LEN, T_LEN)
-            ti = time.time()
-            reads, writes = algorithm(P_PATH, T_PATH)
-            tf = time.time()
-            dt = tf - ti
-            input_tmp.append(reads)
-            output_tmp.append(writes)
-            time_tmp.append(dt)
-        current_dict[k] = {
-            'Input_sum': sum(input_tmp),
-            'Input_mean': statistics.mean(input_tmp),
-            'Input_sted': statistics.stdev(input_tmp),
-            'Output_sum': sum(output_tmp),
-            'Output_mean': statistics.mean(output_tmp),
-            'Output_sted': statistics.stdev(output_tmp), 
-            'I/Os_sum': sum(input_tmp) + sum(output_tmp),
-            'I/Os_mean': statistics.mean(input_tmp+output_tmp),
-            'I/Os_std': statistics.stdev(input_tmp+output_tmp),
-            'time_sum': sum(time_tmp), 
-            'time_mean': statistics.mean(time_tmp),
-            'time_std': statistics.stdev(time_tmp),
-        }
-        msg = '[{}][K = {}] DONE'.format(algorithm.__name__.upper(), str(k))
-        print(msg)
-    file_name = 'output_exp/experiment_for_k_{}.json'.format(algorithm.__name__)
-    with open(file_name, 'w+') as fp:
-        json.dump(current_dict, fp)
-    fp.close()
+final_dict = {}
+for n in range(N):
+    current_dict = {}
+    for algorithm in algorithms:
+        for k in range(MIN, MAX):
+            input_tmp = []
+            output_tmp = []
+            io_tmp = []
+            time_tmp = []
+            for current_k in range(k):
+                generator(P_LEN, T_LEN)
+                ti = time.time()
+                reads, writes = algorithm(P_PATH, T_PATH)
+                tf = time.time()
+                dt = tf - ti
+                input_tmp.append(reads)
+                output_tmp.append(writes)
+                io_tmp.append(reads+writes)
+                time_tmp.append(dt)
+            current_dict[k] = {
+                'Input_sum': sum(input_tmp),
+                'Input_mean': statistics.mean(input_tmp),
+                'Input_sted': statistics.stdev(input_tmp),
+                'Output_sum': sum(output_tmp),
+                'Output_mean': statistics.mean(output_tmp),
+                'Output_std': statistics.stdev(output_tmp), 
+                'I/Os_sum': sum(io_tmp),
+                'I/Os_mean': statistics.mean(io_tmp),
+                'I/Os_std': statistics.stdev(io_tmp),
+                'time_sum': sum(time_tmp), 
+                'time_mean': statistics.mean(time_tmp),
+                'time_std': statistics.stdev(time_tmp),
+            }
+            msg = '[N = {}][{}][K = {}] DONE'.format(n, algorithm.__name__.upper(), str(k))
+            print(msg)
+    final_dict[str(n)] = current_dict
+file_name = 'output_exp/final_experiment_for_k_{}_n_{}.json'.format(algorithm.__name__, N)
+with open(file_name, 'w+') as fp:
+    json.dump(final_dict, fp)
+fp.close()

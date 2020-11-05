@@ -24,5 +24,3 @@ def generator(p, t):
     TMP.close()
     os.system('sort ' + TMP_PATH + ' > ' + T_PATH)
     os.system('rm ' + TMP_PATH)
-#arg = sys.argv
-#generator(arg[1], arg[2])

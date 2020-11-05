@@ -1,4 +1,4 @@
-from utils import execute_search, get_P, get_T, get_output, get_length_file, BLOCK_SIZE, math, read_a_line_from_file, read_many_lines, LINE_SIZE
+from utils import execute_search, get_P, get_T, get_output, get_length_file, B, math, read_a_line_from_file, read_many_lines, LINE_SIZE, BLOCK_SIZE
 
 def binary_search_modified(arr, x, n):
     low = 0
@@ -28,16 +28,16 @@ def indexed_search(path_p, path_t):
     S = []
     to_write = []
     len_t = get_length_file(path_t)
-    n_blocks = math.ceil(len_t / BLOCK_SIZE)
+    n_blocks = math.ceil(len_t / B)
     for i in range(n_blocks):
-        line_str = read_a_line_from_file(T, i * BLOCK_SIZE)
+        line_str = read_a_line_from_file(T, i * B)
         read_accesses += 1
         S.append(line_str)
     for searched in P:
         s_interval_id = binary_search_modified(S, searched, len(S) - 1)
         if s_interval_id != -1:
-            start_reading_at = LINE_SIZE * s_interval_id * BLOCK_SIZE
-            many_lines = read_many_lines(start_reading_at, BLOCK_SIZE, T)
+            start_reading_at = LINE_SIZE * s_interval_id * B
+            many_lines = read_many_lines(start_reading_at, B, T)
             read_accesses += 1
             for block_number in many_lines:
                 if block_number != '' and searched == block_number:
