@@ -29,10 +29,10 @@ def dijkstra_controller():
     print(graph)
     start = int(input())
     if sys.argv[1] == "FibonacciHeap":
-        queuexd = queue.FibonacciHeap()
+        my_queue = queue.FibonacciHeap()
     else:
-        queuexd = queue.BinaryHeap()
-    print(dijkstra(graph, start, queuexd))
+        my_queue = queue.BinaryHeap()
+    print(dijkstra(graph, start, my_queue))
      
 dijkstra_controller()
 
