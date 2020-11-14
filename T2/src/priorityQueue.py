@@ -1,6 +1,6 @@
 import math
-from src.trees import BinomNode
-from utils import log2_ceil
+from src.trees import BMinHeapNode, BinomNode
+from src.utils import log2_ceil
 
 '''
 PriorityQueueInterface
@@ -42,11 +42,11 @@ class BinaryHeap(PriorityQueueInterface):
         return extracted_min
 
     def insert(self, x, k):
-        new_duple = [x, k]
+        new_duple = BMinHeapNode(x, k, self.n)
         self.tree.append(new_duple)
         self.elements_in_order[x - 1] = new_duple
         self.n += 1
-        self._float_up(self.n - 1, k)
+        self.float_node_up(self.n - 1)
     
     def empty(self):
         return not bool(self.n)
@@ -146,7 +146,7 @@ class FibonacciHeap(PriorityQueueInterface):
         return not bool(self.queue_length)
     
 
-    def decrease_key(x, k):
+    def decrease_key(self, x, k):
         self.elements_in_order[x - 1].set_value_and_relocate(k)
     
 
@@ -172,7 +172,7 @@ class FibonacciHeap(PriorityQueueInterface):
 
 
     def _fuse(self, tree_1, tree_2):
-        if tree_1.degree > tree_2.degree
+        if tree_1.degree > tree_2.degree:
             greater_tree = tree_2
             tree_2.add_child(tree_1)
         else:
