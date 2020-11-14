@@ -10,6 +10,23 @@ class DupleNode(Node):
         self.value = (x, k)
         self.children = children
 
+class BMinHeapNode:
+
+    def __init__(self, x, k, spawn_pos) -> None:
+        self.element = x
+        self.key = k
+        self.pos = spawn_pos
+    
+    def float_up(self, tree):
+        tree.float_node_up(self.pos)
+
+    def set_key(self, k):
+        self.key = k
+
+    def set_pos(self, new_pos):
+        self.pos = new_pos
+
+
 class BinomNode:
 
     def __init__(self, x, k):
