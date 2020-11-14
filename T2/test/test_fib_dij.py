@@ -1,6 +1,5 @@
 import unittest
 from src.dijkstra_base import dijkstra
-from src.priorityQueue import BinaryHeap, FibonacciHeap 
 from src.otherQueue import aFibonacciHeap
 from src.utils import graph_to_dict
 
@@ -11,7 +10,7 @@ Input/output robado de:
 """
 
 
-class DijkstraTestCase(unittest.TestCase):
+class FibDijTestCase(unittest.TestCase):
 
     def setUp(self):
         self.base_start, self.base_graph = 1, graph_to_dict(
@@ -37,42 +36,12 @@ class DijkstraTestCase(unittest.TestCase):
         resultado = dijkstra(
             self.tc_2_graph, self.tc_2_start, aFibonacciHeap(3))
         self.assertEqual(resultado, "2 1 0")
-    
-    def test_base_dijkstra_binary(self):
-        resultado = dijkstra(
-            self.base_graph, self.base_start, BinaryHeap(6))
-        self.assertEqual(resultado, "0 2 1 3 5 6")
 
-    def test_case_1_dijkstra_binary(self):
+    def test_case_aaaaaaaaaaahxd(self):
         resultado = dijkstra(
-            self.tc_1_graph, self.tc_1_start, BinaryHeap(5))
-        self.assertEqual(resultado, "0 2 4 1 5")
-
-    def test_case_2_dijkstra_binary(self):
-        resultado = dijkstra(
-            self.tc_2_graph, self.tc_2_start, BinaryHeap(3))
-        self.assertEqual(resultado, "2 1 0")
-    
-    def test_base_dijkstra_fibonacci(self):
-        resultado = dijkstra(
-            self.base_graph, self.base_start, FibonacciHeap(6))
-        self.assertEqual(resultado, "0 2 1 3 5 6")
-
-    def test_case_1_dijkstra_fibonacci(self):
-        resultado = dijkstra(
-            self.tc_1_graph, self.tc_1_start, FibonacciHeap(5))
-        self.assertEqual(resultado, "0 2 4 1 5")
-
-    def test_case_2_dijkstra_fibonacci(self):
-        resultado = dijkstra(
-            self.tc_2_graph, self.tc_2_start, FibonacciHeap(3))
-        self.assertEqual(resultado, "2 1 0")
-    
-    def test_case_3_dijkstra_fibonacci(self):
-        resultado = dijkstra(
-            self.tc_3_graph, self.tc_3_start, FibonacciHeap(10))
+            self.tc_3_graph, self.tc_3_start, aFibonacciHeap(10))
         self.assertEqual(resultado, "2465443114 1882404708 1258058452 1204145551 1175352843 289571756 0 11214701 604946066 1402469184")
-    
-    
+     
+
 if __name__ == "__main__":
     unittest.main()

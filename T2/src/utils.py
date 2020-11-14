@@ -1,3 +1,5 @@
+import json
+
 def graph_to_dict(d):
     g = d.split()
     graph = {}
@@ -7,7 +9,6 @@ def graph_to_dict(d):
     for i in range(aristas):
         index = 3*(i+1) - 1
         u, v, s = int(g[index]), int(g[index+1]), int(g[index+2])
-        print(u, v, s)
         graph[u][v] = s
         graph[v][u] = s
     return graph
