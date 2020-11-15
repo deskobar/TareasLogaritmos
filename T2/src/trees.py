@@ -16,15 +16,15 @@ class BMinHeapNode:
         self.element = x
         self.key = k
         self.pos = spawn_pos
-    
-    def float_up(self, tree):
-        tree.float_node_up(self.pos)
 
     def set_key(self, k):
         self.key = k
 
     def set_pos(self, new_pos):
         self.pos = new_pos
+    
+    def get_pos(self):
+        return self.pos
 
 
 class BinomNode:

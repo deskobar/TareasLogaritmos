@@ -46,18 +46,30 @@ class BinaryHeap(PriorityQueueInterface):
         self.tree.append(new_duple)
         self.elements_in_order[x - 1] = new_duple
         self.n += 1
-        self.float_node_up(self.n - 1)
+        self._float_node_up(self.n - 1)
     
     def empty(self):
         return not bool(self.n)
     
     def decrease_key(self, x, k):
-        for i in range(self.n):
-            if self.tree[i][0] == x:
-                self.elements_in_order[x - 1] = min(self.tree[i][1], k) # RECORDAR OPTIMIZAR ESTO 
-                self._float_up(i, k)
-                break
+        node_to_move = self.elements_in_order[x - 1]
+        node_to_move.set_key(k)
+        self._float_node_up(node_to_move.get_pos())
     
+    def _float_node_up(self, node_pos):
+        child_pos = node_pos
+        parent_pos = self._get_parent_node_pos(node_pos)
+        
+        # compare with parent and swap
+        while child_pos > 0 and self.tree[parent_pos].key > self.tree[child_pos].key:
+            self._swap(child_pos, parent_pos)
+            self.tree[child_pos].set_pos(child_pos) # redefine position label to former parent node 
+            child_pos = parent_pos
+            parent_pos = self._get_parent_node_pos(child_pos)
+        
+        self.tree[child_pos].set_pos(child_pos)     # redefine position label to moved node
+
+
     def _float_up(self, node_pos, k):
         child_pos = node_pos
         parent_pos = self._get_parent_node_pos(node_pos)
@@ -83,9 +95,10 @@ class BinaryHeap(PriorityQueueInterface):
         left_node_pos = self._get_left_node_pos(node_pos)
         right_node_pos = self._get_right_node_pos(node_pos)
         min_child_pos = 0
+
         while left_node_pos < self.n:
             min_child_pos = self._get_min_pos_from(left_node_pos, right_node_pos)
-            if self.tree[node_pos][1] > self.tree[min_child_pos][1]:
+            if self.tree[node_pos].key > self.tree[min_child_pos].key:
                 self._swap(node_pos, min_child_pos)
                 node_pos = min_child_pos
                 left_node_pos = self._get_left_node_pos(node_pos)
@@ -93,7 +106,7 @@ class BinaryHeap(PriorityQueueInterface):
             else: break
     
     def _get_min_pos_from(self, pos_1, pos_2):
-        if pos_1 < self.n and (pos_2 >= self.n or self.tree[pos_1][1] <= self.tree[pos_2][1]):
+        if pos_1 < self.n and (pos_2 >= self.n or self.tree[pos_1].key <= self.tree[pos_2].key):
             return pos_1
         if pos_2 < self.n:
             return pos_2
