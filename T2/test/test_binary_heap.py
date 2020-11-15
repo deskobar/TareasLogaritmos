@@ -1,6 +1,6 @@
 import unittest
-from TareasLogaritmos.T2.src.priorityQueue import BinaryHeap
-from TareasLogaritmos.T2.src.trees import BMinHeapNode
+from src.priorityQueue import BinaryHeap
+from src.trees import BMinHeapNode
 
 class BinaryHeapTestCase(unittest.TestCase):
 
@@ -49,9 +49,8 @@ class BinaryHeapTestCase(unittest.TestCase):
         self.heap.insert(1, 5)
         self.heap.insert(10, 3)
         self.heap.insert(15, 7)
-        self.heap.insert(-5, 4)
+        self.heap.insert(2, 4)
         self.heap.decrease_key(1, 2)
-        self.assertEqual(self.heap.tree, [(1, 2), (10, 3), (15, 7), (-5, 4)])
         self._assert_equal_node_arrays(self.heap.tree, [BMinHeapNode(1, 2, 0), BMinHeapNode(10, 3, 1), BMinHeapNode(15, 7, 2), BMinHeapNode(2, 4, 3)])
         self.assertEqual(self.heap.tree[0], self.heap.elements_in_order[0])
         self.assertEqual(self.heap.n, 4)
@@ -63,16 +62,15 @@ class BinaryHeapTestCase(unittest.TestCase):
         self.heap.insert(1, 5)
         self.heap.insert(10, 3)
         self.heap.insert(15, 7)
-        self.heap.insert(-5, 4)
+        self.heap.insert(2, 4)
         self.heap.decrease_key(1, 2)
         self.heap.extract_min()
-        self.assertEqual(self.heap.tree, [(10, 3), (-5, 4), (15, 7)])
         self._assert_equal_node_arrays(self.heap.tree, [BMinHeapNode(10, 3, 0), BMinHeapNode(2, 4, 1), BMinHeapNode(15, 7, 2)])
         self.assertEqual(self.heap.n, 3)
 
     def test_empty(self):
         self.heap.insert(10, 3)
-        self.heap.insert(-5, 4)
+        self.heap.insert(2, 4)
         self.heap.insert(15, 7)
         for _i in range(3):
             print("value of n is: " + str(self.heap.n))

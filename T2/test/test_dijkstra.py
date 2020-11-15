@@ -1,6 +1,6 @@
 import unittest
 from src.dijkstra_base import dijkstra
-from src.priorityQueue import BinaryHeap  # , FibonacciHeap
+from src.priorityQueue import BinaryHeap, FibonacciHeap  # , FibonacciHeap
 from src.utils import graph_to_dict
 
 """
@@ -19,23 +19,36 @@ class DijkstraTestCase(unittest.TestCase):
             "5 6 1 2 2 2 5 5 2 3 4 1 4 1 4 3 3 3 5 1")
         self.tc_2_start, self.tc_2_graph = 3, graph_to_dict(
             "3 3 1 2 1 2 3 1 1 3 2")
-        self.binary_heap = BinaryHeap()
-        # self.fibonacci_heap = FibonacciHeap()
 
     def test_base_dijkstra_binary(self):
         resultado = dijkstra(
-            self.base_graph, self.base_start, self.binary_heap)
+            self.base_graph, self.base_start, BinaryHeap(6))
         self.assertEqual(resultado, "0 2 1 3 5 6")
 
     def test_case_1_dijkstra_binary(self):
         resultado = dijkstra(
-            self.tc_1_graph, self.tc_1_start, self.binary_heap)
+            self.tc_1_graph, self.tc_1_start, BinaryHeap(5))
         self.assertEqual(resultado, "0 2 4 1 5")
 
     def test_case_2_dijkstra_binary(self):
         resultado = dijkstra(
-            self.tc_2_graph, self.tc_2_start, self.binary_heap)
-        self.assertEqual(dijkstra(resultado, "2 1 0")
+            self.tc_2_graph, self.tc_2_start, BinaryHeap(3))
+        self.assertEqual(resultado, "2 1 0")
+    
+    def test_base_dijkstra_fibonacci(self):
+        resultado = dijkstra(
+            self.base_graph, self.base_start, FibonacciHeap(6))
+        self.assertEqual(resultado, "0 2 1 3 5 6")
+
+    def test_case_1_dijkstra_fibonacci(self):
+        resultado = dijkstra(
+            self.tc_1_graph, self.tc_1_start, FibonacciHeap(5))
+        self.assertEqual(resultado, "0 2 4 1 5")
+
+    def test_case_2_dijkstra_fibonacci(self):
+        resultado = dijkstra(
+            self.tc_2_graph, self.tc_2_start, FibonacciHeap(3))
+        self.assertEqual(resultado, "2 1 0")
 
 if __name__ == "__main__":
     unittest.main()

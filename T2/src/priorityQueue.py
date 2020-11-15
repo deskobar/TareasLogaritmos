@@ -1,6 +1,6 @@
 import math
 from src.trees import BMinHeapNode, BinomNode
-from src.utils import log2_ceil
+from src.utils import log2_ceil, log2_floor
 
 '''
 PriorityQueueInterface
@@ -17,7 +17,7 @@ class PriorityQueueInterface:
         pass
     
     def empty(self):
-        """Retorna si la cola está vacía o no"""
+        """Retorna si la cola esta vacia o no"""
         pass
     
     def decrease_key(self, x, k):
@@ -27,7 +27,7 @@ class PriorityQueueInterface:
 
 class BinaryHeap(PriorityQueueInterface):
     
-    def __init__(self, total_elements) -> None:
+    def __init__(self, total_elements):
         self.tree = []
         self.n = 0
         self.elements_in_order = [None] * total_elements
@@ -35,11 +35,11 @@ class BinaryHeap(PriorityQueueInterface):
     def extract_min(self):
         self._swap(0, self.n - 1)
         extracted_min = self.tree.pop()
-        self.elements_in_order[extracted_min[0] - 1] = None
+        self.elements_in_order[extracted_min.element - 1] = None
         self.n -= 1
         if self.n > 0:
             self._min_heapify()
-        return extracted_min
+        return extracted_min.element, extracted_min.key
 
     def insert(self, x, k):
         new_duple = BMinHeapNode(x, k, self.n)
@@ -53,7 +53,8 @@ class BinaryHeap(PriorityQueueInterface):
     
     def decrease_key(self, x, k):
         node_to_move = self.elements_in_order[x - 1]
-        node_to_move.set_key(k)
+        if node_to_move.key > k:
+            node_to_move.set_key(k)
         self._float_node_up(node_to_move.get_pos())
     
     def _float_node_up(self, node_pos):
@@ -100,10 +101,14 @@ class BinaryHeap(PriorityQueueInterface):
             min_child_pos = self._get_min_pos_from(left_node_pos, right_node_pos)
             if self.tree[node_pos].key > self.tree[min_child_pos].key:
                 self._swap(node_pos, min_child_pos)
+                self.tree[node_pos].set_pos(node_pos)
                 node_pos = min_child_pos
                 left_node_pos = self._get_left_node_pos(node_pos)
                 right_node_pos = self._get_right_node_pos(node_pos)
             else: break
+        
+        self.tree[node_pos].set_pos(node_pos)
+
     
     def _get_min_pos_from(self, pos_1, pos_2):
         if pos_1 < self.n and (pos_2 >= self.n or self.tree[pos_1].key <= self.tree[pos_2].key):
@@ -135,12 +140,13 @@ class BinaryHeap(PriorityQueueInterface):
 
 class FibonacciHeap(PriorityQueueInterface):
 
-    def __init__(self, total_elements) -> None:
+    def __init__(self, total_elements):
         self.queue = []
         self.queue_length = 0
         self.min_element = None
-        self.min_value = None
+        self.min_key = None
         self.min_pos = -1
+        self.current_elements = 0
         self.elements_in_order = [None] * total_elements
     
 
@@ -149,8 +155,9 @@ class FibonacciHeap(PriorityQueueInterface):
         self.queue.append(new_node)
         self.elements_in_order[x - 1] = new_node
         self.queue_length += 1
-        if self.min_value == None or self.min_value > k:
-            self.min_value = k
+        self.current_elements += 1
+        if self.min_key == None or self.min_key > k:
+            self.min_key = k
             self.min_element = x
             self.min_pos = self.queue_length - 1
     
@@ -170,22 +177,37 @@ class FibonacciHeap(PriorityQueueInterface):
         # extraction
         ret_node = self.queue[self.min_pos]
         self.queue.pop(self.min_pos)
-        for child in ret_node:
+        for child in ret_node.children:
             self.queue.append(child)
 
         # conversion to binomial forest
-        aux_queue = [None] * log2_ceil(self.queue_length)
+        aux_queue = [None] * log2_ceil(self.current_elements)
         for tree in self.queue:
             transition_tree = tree
             while aux_queue[transition_tree.degree] != None:
-                transition_tree = self.fuse(transition_tree, aux_queue[transition_tree.degree])
-                aux_queue[transition_tree.degree] = None
+                transition_tree = self._fuse(transition_tree, aux_queue[transition_tree.degree])
+                aux_queue[transition_tree.degree - 1] = None
             aux_queue[transition_tree.degree] = transition_tree
-        self.queue = aux_queue
+
+        # redefine heap
+        self.queue = []
+        self.min_pos = -1
+        self.queue_length = 0
+        for node in aux_queue:
+            if node != None:
+                self.queue.append(node)
+                self.queue_length += 1
+                if self.min_pos == -1 or node.key < self.min_key:
+                    self.min_pos = self.queue_length - 1
+                    self.min_element = node.element
+                    self.min_key = node.key
+
+        self.current_elements -= 1
+        return ret_node.element, ret_node.key
 
 
     def _fuse(self, tree_1, tree_2):
-        if tree_1.degree > tree_2.degree:
+        if tree_1.key > tree_2.key:
             greater_tree = tree_2
             tree_2.add_child(tree_1)
         else:

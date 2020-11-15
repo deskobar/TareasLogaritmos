@@ -1,18 +1,18 @@
 class Node:
 
     def __init__(self, value, *children):
-        self.value = value
+        self.key = value
         self.children = children
     
 class DupleNode(Node):
 
     def __init__(self, x, k, *children):
-        self.value = (x, k)
+        self.key = (x, k)
         self.children = children
 
 class BMinHeapNode:
 
-    def __init__(self, x, k, spawn_pos) -> None:
+    def __init__(self, x, k, spawn_pos):
         self.element = x
         self.key = k
         self.pos = spawn_pos
@@ -31,7 +31,7 @@ class BinomNode:
 
     def __init__(self, x, k):
         self.element = x
-        self.value = k
+        self.key = k
         self.children = []
         self.degree = 0
         self.parent = None
@@ -65,10 +65,10 @@ class BinomNode:
         self.children = new_children
     
     def _float_up(self):
-        while self.parent != None and self.parent.value > self.value:
+        while self.parent != None and self.parent.value > self.key:
             self.swap_with_parent()
     
     def set_value_and_relocate(self, k):
-        self.value = k
+        self.key = k
         self._float_up()
 
