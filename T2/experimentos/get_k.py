@@ -21,3 +21,12 @@ for i in range(3):
         }
     super_dict[str(i)] = current_dict
 print(super_dict)
+
+"""
+DICCIONARIO = {
+    0: {}
+    1: {}
+    2: {}
+}
+
+"""

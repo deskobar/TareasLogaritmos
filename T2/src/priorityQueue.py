@@ -143,7 +143,8 @@ class FibonacciHeap(PriorityQueueInterface):
     def __init__(self, total_elements):
         self.queue = []
         self.queue_length = 0
-        self.min_element = None
+        self.min = None
+        # self.min_element = None
         self.min_key = None
         self.min_pos = -1
         self.current_elements = 0
@@ -156,9 +157,10 @@ class FibonacciHeap(PriorityQueueInterface):
         self.elements_in_order[x - 1] = new_node
         self.queue_length += 1
         self.current_elements += 1
-        if self.min_key == None or self.min_key > k:
+        if self.min_pos == -1 or self.min_key > k:
             self.min_key = k
-            self.min_element = x
+            self.min = new_node
+            # self.min_element = x
             self.min_pos = self.queue_length - 1
     
 
@@ -167,8 +169,28 @@ class FibonacciHeap(PriorityQueueInterface):
     
 
     def decrease_key(self, x, k):
-        self.elements_in_order[x - 1].set_value_and_relocate(k)
-    
+        changed_node = self.elements_in_order[x - 1]
+        changed_node.set_value(k)
+        if k < self.min_key:
+            self._cut(changed_node, True)
+            # self.queue.append(changed_node)
+            self.min = changed_node
+            self.min_key = k
+
+    def _cut(self, node, is_new_min=False):
+        parent_node = node.get_parent()
+        if parent_node != None:
+            parent_node.remove_child(node.degree)
+            node.unmark()
+            node.set_parent(None)
+            self.queue.append(node)
+            self.queue_length += 1
+            if is_new_min:
+                self.min_pos = self.queue_length - 1
+            if parent_node.is_marked():
+                self._cut(parent_node)
+            else:
+                parent_node.mark()
 
     def extract_min(self):
         if self.min_pos == -1:
@@ -176,6 +198,7 @@ class FibonacciHeap(PriorityQueueInterface):
         
         # extraction
         ret_node = self.queue.pop(self.min_pos)
+        self.elements_in_order[ret_node.element - 1] = None
         self.current_elements -= 1
         for child in ret_node.children:
             child.set_parent(None)
@@ -200,7 +223,8 @@ class FibonacciHeap(PriorityQueueInterface):
                 self.queue_length += 1
                 if self.min_pos == -1 or node.key < self.min_key:
                     self.min_pos = self.queue_length - 1
-                    self.min_element = node.element
+                    # self.min_element = node.element
+                    self.min = node
                     self.min_key = node.key
 
         #self.current_elements -= 1

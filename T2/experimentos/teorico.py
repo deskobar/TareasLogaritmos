@@ -9,8 +9,8 @@ def fib_cost(V, p):
 
 bin_cost_l = []
 fib_cost_l = []
-p = 0.5
-x_range = range(1, 100000)
+p = 1
+x_range = range(1, 101)
 for i in x_range:
     bin_cost_l.append(bin_cost(i, p))
     fib_cost_l.append(fib_cost(i, p))
