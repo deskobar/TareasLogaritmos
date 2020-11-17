@@ -39,6 +39,7 @@ class BinomNode:
     def add_child(self, child):
         self.children.append(child)
         self.degree += 1
+        child.set_parent(self)
     
     def set_parent(self, new_parent):
         self.parent = new_parent
@@ -48,27 +49,30 @@ class BinomNode:
     
     def swap_with_parent(self):
         former_parent = self.parent
-        self.parent.swap_with_child(self.degree)
-        self.children[self.degree] = former_parent
-        self.degree += 1
+        aux_degree = self.degree
+        self.parent.swap_with_child(aux_degree)
+        #self.children[aux_degree] = former_parent
     
     def swap_with_child(self, child_deg):
         swap_child = self.children[child_deg]
         aux_parent = self.parent
         aux_children = self.children
-        self.set_tree_pos(swap_child, swap_child.children)
-        self.degree -= 1
-        swap_child.set_tree_pos(aux_parent, aux_children)
+        aux_degree = self.degree
+        aux_children[child_deg] = self # OJO
+        self.set_tree_pos(swap_child, swap_child.children, swap_child.degree)
+        swap_child.set_tree_pos(aux_parent, aux_children, aux_degree)
     
-    def set_tree_pos(self, new_parent, new_children):
+    def set_tree_pos(self, new_parent, new_children, new_degree):
         self.parent = new_parent
         self.children = new_children
+        self.degree = new_degree
     
     def _float_up(self):
-        while self.parent != None and self.parent.value > self.key:
+        while self.parent != None and self.parent.key > self.key:
             self.swap_with_parent()
     
     def set_value_and_relocate(self, k):
-        self.key = k
-        self._float_up()
+        if self.key > k:
+            self.key = k
+            self._float_up()
 

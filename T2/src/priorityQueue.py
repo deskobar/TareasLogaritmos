@@ -175,13 +175,14 @@ class FibonacciHeap(PriorityQueueInterface):
             return None
         
         # extraction
-        ret_node = self.queue[self.min_pos]
-        self.queue.pop(self.min_pos)
+        ret_node = self.queue.pop(self.min_pos)
+        self.current_elements -= 1
         for child in ret_node.children:
+            child.set_parent(None)
             self.queue.append(child)
 
         # conversion to binomial forest
-        aux_queue = [None] * log2_ceil(self.current_elements)
+        aux_queue = [None] * log2_ceil(self.current_elements + 1)
         for tree in self.queue:
             transition_tree = tree
             while aux_queue[transition_tree.degree] != None:
@@ -193,7 +194,7 @@ class FibonacciHeap(PriorityQueueInterface):
         self.queue = []
         self.min_pos = -1
         self.queue_length = 0
-        for node in aux_queue:
+        for node in aux_queue: 
             if node != None:
                 self.queue.append(node)
                 self.queue_length += 1
@@ -202,15 +203,16 @@ class FibonacciHeap(PriorityQueueInterface):
                     self.min_element = node.element
                     self.min_key = node.key
 
-        self.current_elements -= 1
+        #self.current_elements -= 1
         return ret_node.element, ret_node.key
 
 
     def _fuse(self, tree_1, tree_2):
         if tree_1.key > tree_2.key:
             greater_tree = tree_2
-            tree_2.add_child(tree_1)
+            lesser_tree = tree_1
         else:
             greater_tree = tree_1
-            tree_1.add_child(tree_2)
+            lesser_tree = tree_2
+        greater_tree.add_child(lesser_tree)
         return greater_tree

@@ -9,13 +9,14 @@ def fib_cost(V, p):
 
 bin_cost_l = []
 fib_cost_l = []
-p = 1
-x_range = range(10000000, 100000000000)
+p = 0.5
+x_range = range(1, 100000)
 for i in x_range:
     bin_cost_l.append(bin_cost(i, p))
     fib_cost_l.append(fib_cost(i, p))
 
 plt.plot(x_range, bin_cost_l, label="binary")
 plt.plot(x_range, fib_cost_l, label="fib")
+plt.title("Hola ma!")
 plt.legend()
 plt.savefig("experimentos/visualizaciones/teorico.png")

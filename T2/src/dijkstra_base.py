@@ -7,13 +7,12 @@ def dijkstra(graph, start, queue):
     queue.decrease_key(start, 0)
     while not queue.empty():
         current_node, current_distance = queue.extract_min()
-        if current_distance > distances[current_node]:
-            continue
-        for neighbor, weight in graph[current_node].items():
-            distance = current_distance + weight;
-            if distances[neighbor] > distance:
-                distances[neighbor] = distance
-                queue.decrease_key(neighbor, distance)
+        if not current_distance > distances[current_node]:
+            for neighbor, weight in graph[current_node].items():
+                distance = current_distance + weight;
+                if distances[neighbor] > distance:
+                    distances[neighbor] = distance
+                    queue.decrease_key(neighbor, distance)
     return " ".join([str(n) for n in distances.values()])
 
 """
