@@ -32,12 +32,11 @@ class BinomNode:
     def __init__(self, x, k):
         self.element = x
         self.key = k
+        self.parent = None
         self.child = None
         self.left = None
         self.right = None
-        # self.children = []
         self.degree = 0
-        self.parent = None
         self.marked = False
     
     def mark(self):
@@ -55,7 +54,6 @@ class BinomNode:
             self.child = new_child
         else:
             self.child.append_node(new_child)
-        # self.children.append(new_child)
         self.degree += 1
         new_child.set_parent(self)
     
@@ -72,49 +70,9 @@ class BinomNode:
     def get_parent(self):
         return self.parent
     
-    '''
-    def swap_with_parent(self):
-        former_parent = self.parent
-        aux_degree = self.degree
-        self.parent.swap_with_child(aux_degree)
-        #self.children[aux_degree] = former_parent
-        if self.parent != None:
-            self.parent.children[self.degree] = self
-
-    
-    def swap_with_child(self, child_deg):
-        #print("child degree:", child_deg, "len(self.children) =", len(self.children))
-        swap_child = self.children[child_deg]
-        aux_parent = self.parent
-        aux_children = self.children
-        aux_degree = self.degree
-        aux_children[child_deg] = self # OJO
-        self.set_tree_pos(swap_child, swap_child.children, swap_child.degree)
-        swap_child.set_tree_pos(aux_parent, aux_children, aux_degree)
-    
-    def set_tree_pos(self, new_parent, new_children, new_degree):
-        self.parent = new_parent
-        self.children = new_children
-        for child in self.children:
-            child.set_parent(self)
-        self.degree = new_degree
-    
-    def _float_up(self):
-        while self.parent != None and self.parent.key > self.key:
-            self.swap_with_parent()
-    
-    def set_value_and_relocate(self, k):
-        if self.key > k:
-            self.key = k
-            self._float_up()
-    '''
     def set_value(self, k):
         if self.key > k:
             self.key = k
-    
-    #def remove_child(self, child_deg):
-    #    self.children.pop(child_deg)
-    #   self.degree -= 1
     
     def isolate(self):
         if self.parent != None:

@@ -144,9 +144,6 @@ class FibonacciHeap(PriorityQueueInterface):
         self.queue = []
         self.queue_length = 0
         self.min = None
-        # self.min_element = None
-        self.min_key = None
-        self.min_pos = -1
         self.current_elements = 0
         self.elements_in_order = [None] * total_elements
     
@@ -154,56 +151,29 @@ class FibonacciHeap(PriorityQueueInterface):
     def insert(self, x, k):
         new_node = BinomNode(x, k)
         self._add_to_queue(new_node)
-        # self.queue.append(new_node)
         self.elements_in_order[x - 1] = new_node
-        print('inserting element ({}, {})'.format(x, k))
-        # self.queue_length += 1
         self.current_elements += 1
         if self.min.key > k:
-            self.min_key = k
-            print('minimum node is now ({}, {})'.format(x, self.min_key))
             self.min = new_node
-            # self.min_element = x
-            # self.min_pos = self.queue_length - 1
     
 
     def empty(self):
         return self.min == None
-        # not bool(self.queue_length)
     
 
     def decrease_key(self, x, k):
-        print('decreasing key of {} from {} to {}'.format(x, self.elements_in_order[x - 1].key, k))
         changed_node = self.elements_in_order[x - 1]
         changed_node.set_value(k)
         if changed_node.parent != None:
-            if k < self.min.key:
-                self._cut(changed_node, True)
-                self.min = changed_node
-                self.min_key = k
-                print('minimum node is now ({}, {})'.format(x, k))
-            elif k < changed_node.parent.key:
-                self._cut(changed_node)
-        elif k < self.min.key:
+            self._cut(changed_node)
+        if k < self.min.key:
             self.min = changed_node
-            self.min_key = k
-            print('minimum node is now ({}, {})'.format(x, k))
-        #if k < self.min_key:
-            # self._cut(changed_node, True)
-            # self.queue.append(changed_node)
 
-    def _cut(self, node, is_new_min=False):
+    def _cut(self, node):
         parent_node = node.get_parent()
         if parent_node != None:
             node.isolate()
-            # parent_node.remove_child(node.degree)
-            # node.unmark()
-            # node.set_parent(None)
             self._add_to_queue(node)
-            # self.queue.append(node)
-            # self.queue_length += 1
-            #if is_new_min:
-            #    self.min_pos = self.queue_length - 1
             if parent_node.is_marked():
                 self._cut(parent_node)
             else:
@@ -214,21 +184,15 @@ class FibonacciHeap(PriorityQueueInterface):
             return None
         
         # extraction
-        # ret_node = self.queue.pop(self.min_pos)
         former_min = self.min
         self._extract_list(former_min.child)
         rts_arr = self._roots_array()
         former_min.isolate()
-        print('extracting node ({}, {})'.format(former_min.element, former_min.key))
         self.elements_in_order[former_min.element - 1] = None
         self.current_elements -= 1
-        # for child in ret_node.children:
-        #     child.isolate()
-        #     self.queue.append(child)
 
         # conversion to binomial forest
         aux_queue = [None] * log2_ceil(self.current_elements + 1)
-        print('queue now has {} trees'.format(len(rts_arr)))
         for tree in rts_arr:
             tree.isolate()
             transition_tree = tree
@@ -237,24 +201,16 @@ class FibonacciHeap(PriorityQueueInterface):
                 aux_queue[transition_tree.degree - 1] = None
             aux_queue[transition_tree.degree] = transition_tree
         
-        self.min = None
-        self.min_key = None
         # redefine heap
-        #self.queue = []
-        #self.min_pos = -1
-        #self.queue_length = 0
+        self.min = None
         for node in aux_queue: 
             if node != None:
                 self._add_to_queue(node)
-                # self.queue.append(node)
-                # self.queue_length += 1
 
-        print('after extraction, queue has {} trees'.format(len(self._roots_array())))
         return former_min.element, former_min.key
 
 
     def _fuse(self, tree_1, tree_2):
-        # print('degrees of trees to fuse are {} and {}'.format(tree_1.degree, tree_2.degree))
         if tree_1.key > tree_2.key:
             greater_tree = tree_2
             lesser_tree = tree_1
@@ -269,27 +225,19 @@ class FibonacciHeap(PriorityQueueInterface):
             self.min.append_node(node)
             if self.min.key > node.key:
                 self.min = node
-                self.min_key = node.key
-                print('minimum node is now ({}, {})'.format(self.min.element, self.min_key))
         else:
             self.min = node
-            self.min_key = node.key
-            print('minimum node is now ({}, {})'.format(self.min.element, self.min_key))
-        #self.queue.append(node)
-        #self.queue_length += 1
 
     def _extract_list(self, node):
         if node != None:
             right_node = node.right
             node.isolate()
             self._add_to_queue(node)
-            #self.queue.append(node)
             self._extract_list(right_node)
     
     def _roots_array(self):
         arr = []
         if self.min != None:
-            #print('Minimum is not none')
             self.min.add_left_to_array(arr)
             self.min.add_right_to_array(arr)
         return arr
