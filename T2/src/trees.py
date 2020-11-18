@@ -94,13 +94,33 @@ class BinomNode:
 
         self.unmark()
     
-    def add_left_to_array(self, arr):
-        if self.left != None:
-            arr.append(self.left)
-            self.left.add_left_to_array(arr)
+    #def add_left_to_array(self, arr):
+    #    if self.left != None:
+    #        arr.append(self.left)
+    #        self.left.add_left_to_array(arr)
         
-    def add_right_to_array(self, arr):
-        if self.right != None:
-            arr.append(self.right)
-            self.right.add_right_to_array(arr)
+    #def add_right_to_array(self, arr):
+    #    if self.right != None:
+    #        arr.append(self.right)
+    #        self.right.add_right_to_array(arr)
+    
+    def array_of_right_elements(self):
+        arr = []
+        #current_node = self
+        next_node = self.right
+        while next_node != None:
+            arr.append(next_node)
+        #    current_node = next_node
+            next_node = next_node.right
+        return arr
+    
+    def array_of_left_elements(self):
+        arr = []
+        #current_node = self
+        next_node = self.left
+        while next_node != None:
+            arr.append(next_node)
+            #current_node = next_node
+            next_node = next_node.left
+        return arr
         

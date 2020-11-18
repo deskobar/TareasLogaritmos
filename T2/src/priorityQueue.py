@@ -198,7 +198,7 @@ class FibonacciHeap(PriorityQueueInterface):
             transition_tree = tree
             while aux_queue[transition_tree.degree] != None:
                 transition_tree = self._fuse(transition_tree, aux_queue[transition_tree.degree])
-                aux_queue[transition_tree.degree - 1] = None
+                aux_queue[transition_tree.degree] = None
             aux_queue[transition_tree.degree] = transition_tree
         
         # redefine heap
@@ -236,8 +236,10 @@ class FibonacciHeap(PriorityQueueInterface):
             self._extract_list(right_node)
     
     def _roots_array(self):
-        arr = []
+        #arr = []
+        #if self.min != None:
+        #    self.min.add_left_to_array(arr)
+        #    self.min.add_right_to_array(arr)
         if self.min != None:
-            self.min.add_left_to_array(arr)
-            self.min.add_right_to_array(arr)
-        return arr
+            return self.min.array_of_left_elements() + self.min.array_of_right_elements()
+        return []

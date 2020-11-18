@@ -93,7 +93,7 @@ class aFibonacciHeap(PriorityQueueInterface):
         A = [None] * int(math.log(self.total_nodes) * 2)
         nodes = [w for w in self._iterate(self.root_list)]
         for x in nodes:
-            d = x.get_degree()
+            d = x.get_degree() - 1
             while A[d] != None:
                 y = A[d]
                 if x.value > y.value:
