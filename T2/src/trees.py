@@ -32,7 +32,10 @@ class BinomNode:
     def __init__(self, x, k):
         self.element = x
         self.key = k
-        self.children = []
+        self.child = None
+        self.left = None
+        self.right = None
+        # self.children = []
         self.degree = 0
         self.parent = None
         self.marked = False
@@ -47,10 +50,21 @@ class BinomNode:
     def is_marked(self):
         return self.marked
 
-    def add_child(self, child):
-        self.children.append(child)
+    def add_child(self, new_child):
+        if self.child == None:
+            self.child = new_child
+        else:
+            self.child.append_node(new_child)
+        # self.children.append(new_child)
         self.degree += 1
-        child.set_parent(self)
+        new_child.set_parent(self)
+    
+    def append_node(self, new_node):
+        if self.right != None:
+            self.right.left = new_node
+            new_node.right = self.right
+        self.right = new_node
+        new_node.left = self
     
     def set_parent(self, new_parent):
         self.parent = new_parent
@@ -58,6 +72,7 @@ class BinomNode:
     def get_parent(self):
         return self.parent
     
+    '''
     def swap_with_parent(self):
         former_parent = self.parent
         aux_degree = self.degree
@@ -92,11 +107,42 @@ class BinomNode:
         if self.key > k:
             self.key = k
             self._float_up()
-    
+    '''
     def set_value(self, k):
         if self.key > k:
             self.key = k
     
-    def remove_child(self, child_deg):
-        self.children.pop(child_deg)
-        self.degree -= 1
+    #def remove_child(self, child_deg):
+    #    self.children.pop(child_deg)
+    #   self.degree -= 1
+    
+    def isolate(self):
+        if self.parent != None:
+            if self.parent.child == self:
+                if self.right != None:
+                    self.parent.child = self.right
+                else:
+                    self.parent.child = self.left
+            self.parent.degree -= 1
+            self.parent = None
+        
+        if self.left != None:
+            self.left.right = self.right
+        self.left = None
+
+        if self.right != None:
+            self.right.left = self.left
+        self.right = None
+
+        self.unmark()
+    
+    def add_left_to_array(self, arr):
+        if self.left != None:
+            arr.append(self.left)
+            self.left.add_left_to_array(arr)
+        
+    def add_right_to_array(self, arr):
+        if self.right != None:
+            arr.append(self.right)
+            self.right.add_right_to_array(arr)
+        
