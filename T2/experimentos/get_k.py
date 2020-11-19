@@ -1,26 +1,18 @@
 import statistics
 import time
-import numpy as np
 from src.generator_base import generator
 from src.priorityQueue import BinaryHeap, FibonacciHeap
 from src.dijkstra_base import dijkstra
 import tracemalloc
 
-MAX = 26
-v = 100
-super_dict = {}
-p_range = [p/10 for p in range(1, 11)]
-v_range = list(range(0, 1001, 100))
-v_range[0] = 2
-
-def find_p(heap):
+def find_p(heap, v, p_range):
     """
     FIJAR V Y PROBAR CON DIFERENTES P
     """
     out = {}
     for p in p_range:
         list_k = []
-        for i in range(MAX):
+        for i in range(26):
             aaah = []
             graph, start = generator(v, p)
             for i in range(3):
@@ -40,8 +32,7 @@ def find_p(heap):
     return out
 
 
-
-def find_V(p, heap):
+def find_V(p, heap, v_range):
     """
     FIJAR P Y PROBAR CON DIFERENTES V
     """
@@ -50,7 +41,7 @@ def find_V(p, heap):
         list_k = []
         list_memory_current = []
         list_memory_peak = []
-        for i in range(MAX):
+        for i in range(26):
             aaah = []
             memory_current = []
             memory_peak = []
