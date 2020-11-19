@@ -60,7 +60,7 @@ class BinomNode:
     def append_node(self, new_node):
         if self.right != None:
             self.right.left = new_node
-            new_node.right = self.right
+        new_node.right = self.right
         self.right = new_node
         new_node.left = self
     
@@ -106,21 +106,21 @@ class BinomNode:
     
     def array_of_right_elements(self):
         arr = []
-        #current_node = self
         next_node = self.right
         while next_node != None:
+            print('receiving node to the right ({}, {})'.format(next_node.element, next_node.key))
+            next_node.isolate()
             arr.append(next_node)
-        #    current_node = next_node
             next_node = next_node.right
         return arr
     
     def array_of_left_elements(self):
         arr = []
-        #current_node = self
         next_node = self.left
         while next_node != None:
+            print('receiving node to the right ({}, {})'.format(next_node.element, next_node.key))
+            next_node.isolate()
             arr.append(next_node)
-            #current_node = next_node
             next_node = next_node.left
         return arr
         

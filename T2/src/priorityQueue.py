@@ -158,6 +158,7 @@ class FibonacciHeap(PriorityQueueInterface):
     
 
     def empty(self):
+        # print('is heap empty?')
         return self.min == None
     
 
@@ -192,13 +193,15 @@ class FibonacciHeap(PriorityQueueInterface):
         self.current_elements -= 1
 
         # conversion to binomial forest
-        aux_queue = [None] * log2_ceil(self.current_elements + 1)
+        aux_queue = [None] * (log2_ceil(self.current_elements + 1) + 1)
         for tree in rts_arr:
-            tree.isolate()
+            # tree.isolate()
             transition_tree = tree
             while aux_queue[transition_tree.degree] != None:
                 transition_tree = self._fuse(transition_tree, aux_queue[transition_tree.degree])
-                aux_queue[transition_tree.degree] = None
+                aux_queue[transition_tree.degree - 1] = None
+               # print('transition tree has degree {} and aux_queue has size {}'.format(transition_tree.degree, len(aux_queue)))
+               # print('total number of elements is {}'.format(self.current_elements))
             aux_queue[transition_tree.degree] = transition_tree
         
         # redefine heap
@@ -206,7 +209,7 @@ class FibonacciHeap(PriorityQueueInterface):
         for node in aux_queue: 
             if node != None:
                 self._add_to_queue(node)
-
+                
         return former_min.element, former_min.key
 
 
