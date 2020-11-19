@@ -11,7 +11,7 @@ MAX = 26
 v = 100
 super_dict = {}
 p_range = [p/10 for p in range(1, 11)]
-v_range = range(2, 1003, 100)
+v_range = range(2, 103, 10)
 """
 FIJAR V Y PROBAR CON DIFERENTES P
 """

@@ -14,7 +14,7 @@ def add_edge(graph, i, j, weight):
     add_directed_edge(graph, i, j, weight)
     add_directed_edge(graph, j, i, weight)
 
-def generator(nodes, density):
+def generator(nodes, density, toPrint=False):
     graph = {}
     total_edges = 0
     nodes_out = []
@@ -30,13 +30,12 @@ def generator(nodes, density):
                 add_edge(graph, i, j, edge_weight)
                 nodes_out.append(' '.join([str(i), str(j), str(edge_weight)]))
                 total_edges += 1
-    print(' '.join([str(nodes), str(total_edges)]))
-    for i in range(total_edges):
-        print(nodes_out[i])
     start = random.randint(1, nodes)
-    print(start)
-    return graph, start
-
+    output = [' '.join([str(nodes), str(total_edges)])] + nodes_out + [start]
+    if toPrint:
+        return output, graph, start
+    else:
+        return graph, start
 
 
 

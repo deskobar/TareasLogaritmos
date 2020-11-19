@@ -153,8 +153,8 @@ class FibonacciHeap(PriorityQueueInterface):
         self._add_to_queue(new_node)
         self.elements_in_order[x - 1] = new_node
         self.current_elements += 1
-        if self.min.key > k:
-            self.min = new_node
+        #if self.min.key > k:
+        #    self.min = new_node
     
 
     def empty(self):
@@ -169,6 +169,7 @@ class FibonacciHeap(PriorityQueueInterface):
             self._cut(changed_node)
         if k < self.min.key:
             self.min = changed_node
+            print('min node is now ({}, {})'.format(changed_node.element, changed_node.key))
 
     def _cut(self, node):
         parent_node = node.get_parent()
@@ -228,8 +229,10 @@ class FibonacciHeap(PriorityQueueInterface):
             self.min.append_node(node)
             if self.min.key > node.key:
                 self.min = node
+                print('min node is now ({}, {})'.format(node.element, node.key))
         else:
             self.min = node
+            print('min node is now ({}, {})'.format(node.element, node.key))
 
     def _extract_list(self, node):
         if node != None:
