@@ -110,21 +110,24 @@ class BinomNode:
     
     def array_of_right_elements(self):
         arr = []
+        current_node = self
         next_node = self.right
         while next_node != None:
-            print('receiving node to the right ({}, {})'.format(next_node.element, next_node.key))
-            next_node.isolate()
+            #print('receiving node to the right ({}, {})'.format(next_node.element, next_node.key))
             arr.append(next_node)
-            next_node = next_node.right
+            current_node = next_node
+            next_node = current_node.right
+            current_node.isolate()
         return arr
     
     def array_of_left_elements(self):
         arr = []
         next_node = self.left
         while next_node != None:
-            print('receiving node to the right ({}, {})'.format(next_node.element, next_node.key))
-            next_node.isolate()
+            #print('receiving node to the left ({}, {})'.format(next_node.element, next_node.key))
             arr.append(next_node)
-            next_node = next_node.left
+            current_node = next_node
+            next_node = current_node.left
+            current_node.isolate()
         return arr
         

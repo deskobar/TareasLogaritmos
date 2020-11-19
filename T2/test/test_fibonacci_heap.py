@@ -80,7 +80,7 @@ class TestFibonacciHeap(unittest.TestCase):
         self.assertFalse(self.heap.empty())
         self.assertEqual(extracted[0], 4)
         extracted = self.heap.extract_min()
-        self.assertTrue(self.heap.empty())
+        self.assertFalse(self.heap.empty())
         self.assertEqual(extracted[0], 3)
         extracted = self.heap.extract_min()
         self.assertTrue(self.heap.empty())

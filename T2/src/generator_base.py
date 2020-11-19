@@ -31,8 +31,8 @@ def generator(nodes, density, toPrint=False):
                 nodes_out.append(' '.join([str(i), str(j), str(edge_weight)]))
                 total_edges += 1
     start = random.randint(1, nodes)
-    output = [' '.join([str(nodes), str(total_edges)])] + nodes_out + [start]
     if toPrint:
+        output = [' '.join([str(nodes), str(total_edges)])] + nodes_out + [start]
         return output, graph, start
     else:
         return graph, start
