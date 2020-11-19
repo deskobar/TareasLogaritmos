@@ -84,12 +84,16 @@ class BinomNode:
             self.parent.degree -= 1
             self.parent = None
         
-        if self.left != None:
-            self.left.right = self.right
-        self.left = None
+        former_left = self.left
+        former_right = self.right
 
-        if self.right != None:
-            self.right.left = self.left
+        if former_left != None:
+            former_left.right = former_right
+
+        if former_right != None:
+            former_right.left = former_left
+        
+        self.left = None
         self.right = None
 
         self.unmark()
