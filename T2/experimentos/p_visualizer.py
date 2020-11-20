@@ -4,14 +4,11 @@ import json
 
 def p_visualization():
 
-    bin_fp = open("experimentos/files/exp_bin.json")
-    big_bin_p = json.load(bin_fp)
-    bin_fp.close()
-
-    fib_fp = open("experimentos/files/exp_fib.json")
-    big_fib_p = json.load(fib_fp)
-    fib_fp.close()
-
+    exp_fp = open("experimentos/files/exp.json")
+    exp = json.load(exp_fp)
+    exp_fp.close()
+    big_bin_p = exp["bin"]
+    big_fib_p = exp["fib"]
     for v in big_bin_p:
         bin_p = big_bin_p[v]
         fib_p = big_fib_p[v]

@@ -1,5 +1,4 @@
+import time
 
-
-xd = list(range(1,10))
-for i in xd:
-    print(i)
+print(time.ctime(time.time()))
+print([p/10 for p in range(0, 11)])

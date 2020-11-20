@@ -6,42 +6,63 @@ from src.dijkstra_base import dijkstra
 import tracemalloc
 
 
-def exp(heap, v_range, p_range):
+def exp(v_range, p_range):
     """
     FIJAR P Y PROBAR CON DIFERENTES V
     """
-    out = {}
+    out = {"fib": {}, "bin": {}}
     for v in v_range:
-        current_v = {}
+        fib_current_v = {}
+        bin_current_v = {}
         for p in p_range:
-            list_k = []
-            list_memory_current = []
-            list_memory_peak = []
+            fib_list_k = []
+            fib_list_memory_current = []
+            fib_list_memory_peak = []
+            bin_list_k = []
+            bin_list_memory_current = []
+            bin_list_memory_peak = []
             for i in range(3):
                 graph, start = generator(v, p)
-                if heap == "fibo":
-                    tracemalloc.start()
-                    ti = time.time()
-                    dijkstra(graph, start, FibonacciHeap(v))
-                    tf = time.time()
-                    current, peak = tracemalloc.get_traced_memory()
-                    tracemalloc.stop()
-                else:
-                    tracemalloc.start()
-                    ti = time.time()
-                    dijkstra(graph, start, BinaryHeap(v))
-                    tf = time.time()
-                    current, peak = tracemalloc.get_traced_memory()
-                    tracemalloc.stop()
-                dt = tf - ti
-                list_k.append(dt)
-                list_memory_current.append(current)
-                list_memory_peak.append(peak)
-            current_v[p] = {"time_mean": statistics.mean(list_k),
-                            "time_std": statistics.stdev(list_k),
-                            "memory_current_mean": statistics.mean(list_memory_current),
-                            "memory_current_std": statistics.stdev(list_memory_current),
-                            "memory_peak_mean": statistics.mean(list_memory_peak),
-                            "memory_peak_std": statistics.stdev(list_memory_peak)}
-        out[v] = current_v
+
+                tracemalloc.start()
+                bin_ti = time.time()
+                dijkstra(graph, start, BinaryHeap(v))
+                bin_tf = time.time()
+                bin_current, bin_peak = tracemalloc.get_traced_memory()
+                tracemalloc.stop()
+                bin_dt = bin_tf - bin_ti
+
+                bin_list_k.append(bin_dt)
+                bin_list_memory_current.append(bin_current)
+                bin_list_memory_peak.append(bin_peak)
+
+                tracemalloc.start()
+                fib_ti = time.time()
+                dijkstra(graph, start, FibonacciHeap(v))
+                fib_tf = time.time()
+                fib_current, fib_peak = tracemalloc.get_traced_memory()
+                tracemalloc.stop()
+                
+                fib_dt = fib_tf - fib_ti
+                fib_list_k.append(fib_dt)
+                fib_list_memory_current.append(fib_current)
+                fib_list_memory_peak.append(fib_peak)
+                
+
+            fib_current_v[p] = {"time_mean": statistics.mean(fib_list_k),
+                                "time_std": statistics.stdev(fib_list_k),
+                                "memory_current_mean": statistics.mean(fib_list_memory_current),
+                                "memory_current_std": statistics.stdev(fib_list_memory_current),
+                                "memory_peak_mean": statistics.mean(fib_list_memory_peak),
+                                "memory_peak_std": statistics.stdev(fib_list_memory_peak)}
+            bin_current_v[p] = {"time_mean": statistics.mean(bin_list_k),
+                                "time_std": statistics.stdev(bin_list_k),
+                                "memory_current_mean": statistics.mean(bin_list_memory_current),
+                                "memory_current_std": statistics.stdev(bin_list_memory_current),
+                                "memory_peak_mean": statistics.mean(bin_list_memory_peak),
+                                "memory_peak_std": statistics.stdev(bin_list_memory_peak)}
+            print("[{}][V = {}][p = {}]".format(time.ctime(time.time()), v, p))
+        out[v] = fib_current_v
+        out["fib"][v] = fib_current_v
+        out["bin"][v] = bin_current_v
     return out
