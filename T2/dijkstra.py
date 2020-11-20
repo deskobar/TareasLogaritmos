@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 from src.dijkstra_base import dijkstra
-import src.priorityQueue as queue
+from src.priorityQueue import BinaryHeap, FibonacciHeap
 import sys
 
 def dijkstra_controller():
@@ -15,10 +15,10 @@ def dijkstra_controller():
     print(graph)
     start = int(input())
     if sys.argv[1] == "FibonacciHeap":
-        my_queue = queue.FibonacciHeap(vertices)
+        queue = FibonacciHeap(vertices)
     else:
-        my_queue = queue.BinaryHeap(vertices)
-    print(dijkstra(graph, start, my_queue))
+        queue = BinaryHeap(vertices)
+    print(dijkstra(graph, start, queue))
      
 dijkstra_controller()
 
