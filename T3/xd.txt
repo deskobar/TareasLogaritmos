@@ -1,0 +1,121 @@
+m: 3, k: 1
+username_query: frhvqrsurerevt
+big n: 10, prob: 0.8, iteration: 0
+username might be in file
+username_in_file frhvqrsurerevt kjpdwnlhkvwvbhjkzxnzgbnzmuy@email.cl
+username_query: uswkyhsbxgtfsyub
+big n: 10, prob: 0.8, iteration: 0
+username might be in file
+username_in_file uswkyhsbxgtfsyub ukobypbtzwqfnmolqsavjdcslithpdhlnoxemrwnfs@email.cl
+username_query: aqltvke
+big n: 10, prob: 0.8, iteration: 0
+username might be in file
+username_in_file aqltvke hcbjmoqcevynkztnsrrtgiqmucingopysciov@email.cl
+username_query: gxxcyufxo
+big n: 10, prob: 0.8, iteration: 0
+username might be in file
+username_in_file gxxcyufxo eiittphzwrgkvafnggxmiowkokujqnvwsjcybvsfbyofrukzai@email.cl
+username_query: vzxfmdzlffjuqg
+big n: 10, prob: 0.8, iteration: 0
+username might be in file
+username_in_file vzxfmdzlffjuqg ekcehxofzodykts@email.cl
+username_query: nqwnwfzbotv
+big n: 10, prob: 0.8, iteration: 0
+username might be in file
+username_in_file 
+username_query: azhyazwhvwigbnezqbu
+big n: 10, prob: 0.8, iteration: 0
+username might be in file
+username_in_file 
+username_query: ifjisnsnjsyzgkpqttvleqorfe
+big n: 10, prob: 0.8, iteration: 0
+username might be in file
+username_in_file 
+username_query: fcipxrwxazfk
+big n: 10, prob: 0.8, iteration: 0
+username might be in file
+username_in_file 
+username_query: lrisihdewovugqndzmqo
+big n: 10, prob: 0.8, iteration: 0
+username might be in file
+username_in_file 
+username_query: nyfoznymephojo
+big n: 10, prob: 0.8, iteration: 1
+username might be in file
+username_in_file nyfoznymephojo xmsykvkftttxwoqgucirrtqiyehvxjcedcqfxbwdz@email.cl
+username_query: iidxrjqeoinoonohgnuqmoizytlfft
+big n: 10, prob: 0.8, iteration: 1
+username might be in file
+username_in_file iidxrjqeoinoonohgnuqmoizytlfft vqufqdggqamjcxesxzzpycfpdmfeykvweeggxdouohbvzfl@email.cl
+username_query: rxjzrrd
+big n: 10, prob: 0.8, iteration: 1
+username might be in file
+username_in_file rxjzrrd sifugtgjscdgudtbb@email.cl
+username_query: ngnbhhzomlfgrhxylngowbpkfs
+big n: 10, prob: 0.8, iteration: 1
+username might be in file
+username_in_file ngnbhhzomlfgrhxylngowbpkfs vzdxcqsxsqpzi@email.cl
+username_query: vzrsd
+big n: 10, prob: 0.8, iteration: 1
+username might be in file
+username_in_file vzrsd ewgqmdspeqyvjxwitphagaevlocklblizpdrisynghub@email.cl
+username_query: gxxvhhellisdksdzfzuco
+big n: 10, prob: 0.8, iteration: 1
+username might be in file
+username_in_file 
+username_query: mgzihv
+big n: 10, prob: 0.8, iteration: 1
+username might be in file
+username_in_file 
+username_query: usbnpwkzrwbiohzwioapmftzgid
+big n: 10, prob: 0.8, iteration: 1
+username might be in file
+username_in_file 
+username_query: cidhgjmsufxmikeeqajav
+big n: 10, prob: 0.8, iteration: 1
+username might be in file
+username_in_file 
+username_query: hxbluzpkcwvcfvkauvvnoaoiagzpe
+big n: 10, prob: 0.8, iteration: 1
+username might be in file
+username_in_file 
+username_query: jytakrsit
+big n: 10, prob: 0.8, iteration: 2
+username might be in file
+username_in_file jytakrsit qlrkdeaciwwpzg@email.cl
+username_query: taadvtgljcamvcjdacinvl
+big n: 10, prob: 0.8, iteration: 2
+username might be in file
+username_in_file taadvtgljcamvcjdacinvl znnebyzkuqja@email.cl
+username_query: axpnggzmqjmcdhbekk
+big n: 10, prob: 0.8, iteration: 2
+username might be in file
+username_in_file axpnggzmqjmcdhbekk mzocchleoxqelzddjgcqhrwexihixiuloytwj@email.cl
+username_query: evawvlmxpmifetgspuquyx
+big n: 10, prob: 0.8, iteration: 2
+username might be in file
+username_in_file evawvlmxpmifetgspuquyx bfrwdjdbzajymroraw@email.cl
+username_query: mofppwkhjfdziouecsvfoqcwao
+big n: 10, prob: 0.8, iteration: 2
+username might be in file
+username_in_file mofppwkhjfdziouecsvfoqcwao fngwxdcfgfxymtjvbkx@email.cl
+username_query: serxmajfskqsogotwlvhmxmuozconm
+big n: 10, prob: 0.8, iteration: 2
+username might be in file
+username_in_file 
+username_query: ftilvc
+big n: 10, prob: 0.8, iteration: 2
+username might be in file
+username_in_file 
+username_query: nznkimgxewdihqgrxrnasrhrnojd
+big n: 10, prob: 0.8, iteration: 2
+username might be in file
+username_in_file 
+username_query: hkxn
+big n: 10, prob: 0.8, iteration: 2
+username might be in file
+username_in_file 
+username_query: ucdaeaemmvqtvoxvzrwrmo
+big n: 10, prob: 0.8, iteration: 2
+username might be in file
+username_in_file 
