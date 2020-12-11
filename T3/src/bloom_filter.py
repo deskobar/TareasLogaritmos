@@ -12,12 +12,13 @@ class BloomFilter:
     def __init__(self, m, k):
         self.m = m
         self.V = BitVector(intVal = 0, size = m)
+        self.hash_seed = [0]*k
         self._fill_hash_seed_array(k)
         
     
     def _fill_hash_seed_array(self, k):
         for i in range(k):
-            self.hash_seed.append(randint(1, sys.maxsize))
+            self.hash_seed[i] = randint(1, sys.maxsize)
     
     def insert(self, p):
         for seed in self.hash_seed:
@@ -31,4 +32,8 @@ class BloomFilter:
             if current_val == 0:
                 return 0
         return 1
+
+    def insert_list(self, words):
+        for word in words:
+            self.insert(word)
 

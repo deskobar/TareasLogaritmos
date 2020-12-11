@@ -1,7 +1,7 @@
 import os
 import random
-from bloom_filter import BloomFilter
-from utils import generate_random_string
+from .bloom_filter import BloomFilter
+from .utils import generate_random_string
 
 MIN_USERNAME_SIZE = 4
 MAX_USERNAME_SIZE = 30

@@ -1,4 +1,4 @@
-from file_module import generate_file, search_username_in_file
+from .file_module import generate_file, search_username_in_file
 
 def generate_experiment(Q):
     result = {}
