@@ -2,6 +2,8 @@ from mmh3 import hash as hash_function
 import BitVector.BitVector as BitVector
 from random import randint
 import sys
+import time
+import tracemalloc
 
 class BloomFilter:
 
