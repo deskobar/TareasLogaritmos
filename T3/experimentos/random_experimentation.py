@@ -38,8 +38,8 @@ for big_n in N_RANGE:
     small_n = big_n / 2
     current_n = {}
     M_RANGE = [20, 30, 40]#[small_n/1000, small_n/100, small_n/50, small_n/10, small_n, small_n*2, small_n*3, small_n*4, small_n*5, small_n*6, small_n*7]
-    for m in M_RANGE:
-        #m = int(mxd)
+    for mxd in M_RANGE:
+        m = int(mxd)
         search_times_bf = []
         search_times_fl = []
         initial_size_bf = []
