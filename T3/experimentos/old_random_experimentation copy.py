@@ -38,13 +38,18 @@ prob_range[10] -= 1e-9
 for big_n in N_RANGE:
     small_n = big_n / 2
     current_n = {}
-    M_RANGE = [10]#[small_n/1000, small_n/100, small_n/50, small_n/10, small_n, small_n*2, small_n*3, small_n*4, small_n*5, small_n*6, small_n*7]
-    for mxd in M_RANGE:
-        m = int(mxd)
-        search_times_bf = search_times_fl = initial_size_bf = size_after_insertion_bf = []
-        false_positives = disk_access = [0] * ITER
+    M_RANGE = [small_n/1000, small_n/100, small_n/50, small_n/10, small_n, small_n*2, small_n*3, small_n*4, small_n*5, small_n*6, small_n*7]
+    for prob in prob_range:
+        p = prob / 10
+        search_times_bf = []
+        search_times_fl = []
+        initial_size_bf = []
+        size_after_insertion_bf = []
+        false_positives = [0] * ITER
+        disk_access = [0] * ITER
+        m = get_m(small_n, p)
         k = get_k(m, small_n)
-        print(f'm: {m}, k: {k}')
+        print(f'p: {p}, m: {m}, k: {k}')
         for i in range(ITER):
             bloom_filter = BloomFilter(m, k)
             initial_size_bf.append(get_deep_size(bloom_filter))
@@ -55,6 +60,7 @@ for big_n in N_RANGE:
             with open('universe_file.txt', 'r') as universe_file:
                 total_usernames_list = [w.strip('\n') for w in universe_file.readlines()]
                 for username_query in total_usernames_list:
+                    current_username = username_query
                     ti_bf = time.time()
                     username_might_be_in_file = bloom_filter.check(username_query)
                     tf_bf = time.time()
@@ -72,10 +78,9 @@ for big_n in N_RANGE:
                 search_times_fl.append(statistics.mean(get_correct_list(current_time_fl)))
                 search_times_bf.append(statistics.mean(current_time_bf))
             universe_file.close()
-            print(search_times_bf)
         mean_false_positives = statistics.mean(false_positives)
         mean_disk_access = statistics.mean(disk_access)
-        current_n[m] = {
+        current_n[p] = {
             'k_value': k,
             'm_value': m,
             'search_time_bf_total': sum(search_times_bf),

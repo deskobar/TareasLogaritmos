@@ -1,0 +1,27 @@
+{
+    "20": {
+        "10": {
+            "k_value": 1,
+            "m_value": 10,
+            "search_time_bf_total": 2980.017442415742,
+            "search_time_bf_mean": 248.33478686797852,
+            "search_time_bf_std": 259.3779277908114,
+            "search_time_fl_total": 2980.017442415742,
+            "search_time_fl_mean": 248.33478686797852,
+            "search_time_fl_std": 259.3779277908114,
+            "false_positives_total": 74,
+            "false_positives_mean": 24.666666666666668,
+            "false_positives_std": 3.0550504633038935,
+            "disk_access_total": 74,
+            "disk_access_mean": 24.666666666666668,
+            "disk_access_std": 3.0550504633038935,
+            "false_positives_percentage": 100.0,
+            "initial_size_bf_total": 2980.017442415742,
+            "initial_size_bf_mean": 248.33478686797852,
+            "initial_size_bf_std": 259.3779277908114,
+            "size_after_insertion_bf_total": 2980.017442415742,
+            "size_after_insertion_bf_mean": 248.33478686797852,
+            "size_after_insertion_bf_std": 259.3779277908114
+        }
+    }
+}

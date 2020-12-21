@@ -10,7 +10,7 @@ class BloomFilter:
     def __init__(self, m, k):
         self.m = m
         self.V = BitVector(intVal = 0, size = m)
-        self.hash_seeds = [0]*k
+        self.hash_seeds = [None] * k
         self._fill_hash_seeds_array(k)
         
     
@@ -34,4 +34,7 @@ class BloomFilter:
     def insert_list(self, words):
         for word in words:
             self.insert(word)
+    
+    def get_V(self):
+        return self.V
 

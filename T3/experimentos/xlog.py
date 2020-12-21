@@ -1,18 +1,18 @@
 import matplotlib.pyplot as plt
-import math
+from math import log, ceil
 
 N = 1000
 
 def m_size(p):
-    m = -N*math.log(p)/math.log(2)**2
+    m = -N*log(p)/log(2)**2
     return m
 
 def get_k(m, n):
-    k = m*math.log(2)/n
+    k = m*log(2)/n
     return k
 
 def probability_falses_positives(m, n):
-    k = math.ceil(get_k(m, n))
+    k = ceil(get_k(m, n))
     p = (1 - (1 - 1/m)**(k*n))**k
     return p
 
