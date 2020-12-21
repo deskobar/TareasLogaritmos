@@ -14,8 +14,8 @@ import statistics
 from objsize import get_deep_size
 from experimentos.file_module import generate_files_and_insert_to_bloom_filter, search_username_in_file
 
-ITER = 3
-N_RANGE = [20]
+ITER = 5
+N_RANGE = [20, 30]
 def get_m(n, p):
     m = ceil(-n * log(p) / (log(2)**2))
     return m
@@ -31,18 +31,21 @@ def get_correct_list(l):
         return l * 2
     return l
 
+json_file = open('results.json', 'w')
+
 output = {}
-prob_range = list(range(0, 11))
-prob_range[0] = 1e-9
-prob_range[10] -= 1e-9 
 for big_n in N_RANGE:
     small_n = big_n / 2
     current_n = {}
-    M_RANGE = [10]#[small_n/1000, small_n/100, small_n/50, small_n/10, small_n, small_n*2, small_n*3, small_n*4, small_n*5, small_n*6, small_n*7]
-    for mxd in M_RANGE:
-        m = int(mxd)
-        search_times_bf = search_times_fl = initial_size_bf = size_after_insertion_bf = []
-        false_positives = disk_access = [0] * ITER
+    M_RANGE = [20, 30, 40]#[small_n/1000, small_n/100, small_n/50, small_n/10, small_n, small_n*2, small_n*3, small_n*4, small_n*5, small_n*6, small_n*7]
+    for m in M_RANGE:
+        #m = int(mxd)
+        search_times_bf = []
+        search_times_fl = []
+        initial_size_bf = []
+        size_after_insertion_bf = []
+        false_positives = [0] * ITER
+        disk_access = [0] * ITER
         k = get_k(m, small_n)
         print(f'm: {m}, k: {k}')
         for i in range(ITER):
@@ -69,10 +72,9 @@ for big_n in N_RANGE:
                         current_time_fl.append(dt_fl)
                         if username_in_file is None:
                             false_positives[i] += 1
-                search_times_fl.append(statistics.mean(get_correct_list(current_time_fl)))
-                search_times_bf.append(statistics.mean(current_time_bf))
             universe_file.close()
-            print(search_times_bf)
+            search_times_fl.append(statistics.mean(get_correct_list(current_time_fl)))
+            search_times_bf.append(statistics.mean(current_time_bf))            
         mean_false_positives = statistics.mean(false_positives)
         mean_disk_access = statistics.mean(disk_access)
         current_n[m] = {
@@ -99,7 +101,5 @@ for big_n in N_RANGE:
             'size_after_insertion_bf_std': statistics.stdev(size_after_insertion_bf)
         }
     output[big_n] = current_n
-                
-with open('results.json', 'w') as json_file:
     json.dump(output, json_file)
 json_file.close()
