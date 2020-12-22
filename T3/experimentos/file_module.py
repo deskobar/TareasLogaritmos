@@ -10,8 +10,8 @@ MAX_EMAIL_SIZE = 50
 EMAIL_DOMAIN = '@email.cl'
 
 def generate_files_and_insert_to_bloom_filter(bf, big_n, small_n):
-    universe_file = open('universe_file.txt', 'w+')
-    L_file = open('L_file.txt', 'w+') 
+    universe_file = open('experimentos/files/universe_file.txt', 'w+')
+    L_file = open('experimentos/files/L_file.txt', 'w+') 
     for i in range(0, big_n):
         random_length_1 = random.randint(MIN_USERNAME_SIZE, MAX_USERNAME_SIZE)
         random_username = generate_random_string(random_length_1)

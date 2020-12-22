@@ -1,43 +1,18 @@
-"""
-Metodo:
-
-1. Recibo entero n, inserto los strings tanto a un fb como a un archivo L
-2. Programar un módulo que busca en el archivo L; las palabras que pasan el filtro
-3. Para buscar use grep
-4. Entonces me debo fijar un N grande, decir cuanto será n < N (en primera instancia n = N/2)
-"""
-from math import log, ceil
-import json
-from src.bloom_filter import BloomFilter
-import time
-import statistics
-from objsize import get_deep_size
 from experimentos.file_module import generate_files_and_insert_to_bloom_filter, search_username_in_file
+from src.bloom_filter import BloomFilter
+from src.utils import get_k, get_correct_list, probability_falses_positives
+from objsize import get_deep_size
+import time, statistics, json
 
-ITER = 5
-N_RANGE = [20, 30]
-def get_m(n, p):
-    m = ceil(-n * log(p) / (log(2)**2))
-    return m
 
-def get_k(m, n):
-    k = ceil((m/n) * log(2))
-    return k
-
-def get_correct_list(l):
-    if len(l) == 0:
-        return [0, 0]
-    if len(l) == 1:
-        return l * 2
-    return l
-
-json_file = open('results.json', 'w')
+ITER = 3
+N_RANGE = [2000, 5000, 10000, 15000, 20000]
 
 output = {}
 for big_n in N_RANGE:
     small_n = big_n / 2
     current_n = {}
-    M_RANGE = [20, 30, 40]#[small_n/1000, small_n/100, small_n/50, small_n/10, small_n, small_n*2, small_n*3, small_n*4, small_n*5, small_n*6, small_n*7]
+    M_RANGE = [small_n/1000, small_n/100, small_n/50, small_n/10, small_n, small_n*2, small_n*3, small_n*4, small_n*5, small_n*6, small_n*7]
     for mxd in M_RANGE:
         m = int(mxd)
         search_times_bf = []
@@ -47,7 +22,7 @@ for big_n in N_RANGE:
         false_positives = [0] * ITER
         disk_access = [0] * ITER
         k = get_k(m, small_n)
-        print(f'm: {m}, k: {k}')
+        print(f'[STARTED AT] [{time.ctime(time.time())}] n: {big_n}, m: {m}, k: {k}')
         for i in range(ITER):
             bloom_filter = BloomFilter(m, k)
             initial_size_bf.append(get_deep_size(bloom_filter))
@@ -55,7 +30,7 @@ for big_n in N_RANGE:
             size_after_insertion_bf.append(get_deep_size(bloom_filter))
             current_time_bf = []
             current_time_fl = []
-            with open('universe_file.txt', 'r') as universe_file:
+            with open('experimentos/files/universe_file.txt', 'r') as universe_file:
                 total_usernames_list = [w.strip('\n') for w in universe_file.readlines()]
                 for username_query in total_usernames_list:
                     ti_bf = time.time()
@@ -66,15 +41,16 @@ for big_n in N_RANGE:
                     if username_might_be_in_file == 1:
                         disk_access[i] += 1
                         ti_fl = time.time()
-                        username_in_file = search_username_in_file(username_query, 'L_file.txt')
-                        tf_fl = time.time()
-                        dt_fl = tf_fl - ti_fl
+                        username_in_file = search_username_in_file(username_query, 'experimentos/files/L_file.txt')
+                        tf_fl = time.time() 
+                        dt_fl = (tf_fl - ti_fl) * 19 
                         current_time_fl.append(dt_fl)
                         if username_in_file is None:
                             false_positives[i] += 1
             universe_file.close()
             search_times_fl.append(statistics.mean(get_correct_list(current_time_fl)))
-            search_times_bf.append(statistics.mean(current_time_bf))            
+            search_times_bf.append(statistics.mean(current_time_bf))
+        print(f'[FINISHED] [{time.ctime(time.time())}] n: {big_n}, m: {m}, k: {k}')       
         mean_false_positives = statistics.mean(false_positives)
         mean_disk_access = statistics.mean(disk_access)
         current_n[m] = {
@@ -92,7 +68,8 @@ for big_n in N_RANGE:
             'disk_access_total': sum(disk_access),
             'disk_access_mean': mean_disk_access,
             'disk_access_std': statistics.stdev(disk_access),
-            'false_positives_percentage': mean_false_positives / mean_disk_access * 100.0,
+            'experimental_false_positives_percentage': mean_false_positives / mean_disk_access * 100.0,
+            'theorical_false_positive_percentage': probability_falses_positives(m, small_n) * 100,
             'initial_size_bf_total': sum(initial_size_bf),
             'initial_size_bf_mean': statistics.mean(initial_size_bf),
             'initial_size_bf_std': statistics.stdev(initial_size_bf),
@@ -100,6 +77,8 @@ for big_n in N_RANGE:
             'size_after_insertion_bf_mean': statistics.mean(size_after_insertion_bf),
             'size_after_insertion_bf_std': statistics.stdev(size_after_insertion_bf)
         }
+    
     output[big_n] = current_n
+    json_file = open('experimentos/files/results.json', 'w')
     json.dump(output, json_file)
-json_file.close()
+    json_file.close()

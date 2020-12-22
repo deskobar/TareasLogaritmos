@@ -1,25 +1,7 @@
+from src.utils import get_k, probability_falses_positives
 import matplotlib.pyplot as plt
-import math
 
 N = 1000
-
-def m_size(p):
-    m = -N*math.log(p)/math.log(2)**2
-    return m
-
-def get_k(m, n):
-    k = m*math.log(2)/n
-    return k
-
-def probability_falses_positives(m, n):
-    k = math.ceil(get_k(m, n))
-    p = (1 - (1 - 1/m)**(k*n))**k
-    return p
-
-"""
-Dado un N fijo, veamos como se comportará la probabilidad en función de m
-"""
-
 BASE = 1000
 
 probability_output = []
@@ -34,5 +16,5 @@ plt.plot(m_range, idk, color='b')
 plt.title(f"P(FP) dado N={BASE}")
 plt.xlabel("Valores de M")
 plt.ylabel("P(FP)")
-plt.savefig("hola")
+plt.savefig("experimentos/graph/size_m.png")
 plt.close()
