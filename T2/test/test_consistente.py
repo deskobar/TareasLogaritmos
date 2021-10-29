@@ -14,13 +14,5 @@ class ConsistenciaTestCase(unittest.TestCase):
             fib_dij = dijkstra(graph, start, FibonacciHeap(i))
             self.assertEqual(bin_dij, fib_dij)
     
-    def test_case_aguanta(self):
-        nodos = 10000
-        p = 1
-        graph, start = generator(nodos, p)
-        bin_dij = dijkstra(graph, start, BinaryHeap(nodos))
-        fib_dij = dijkstra(graph, start, FibonacciHeap(nodos))
-        self.assertEqual(bin_dij, fib_dij)
-    
 if __name__ == "__main__":
     unittest.main()

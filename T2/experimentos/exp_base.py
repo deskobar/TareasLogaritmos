@@ -25,6 +25,13 @@ def exp(v_range, p_range):
                 graph, start = generator(v, p)
 
                 tracemalloc.start()
+                fib_ti = time.time()
+                dijkstra(graph, start, FibonacciHeap(v))
+                fib_tf = time.time()
+                fib_current, fib_peak = tracemalloc.get_traced_memory()
+                tracemalloc.stop()
+
+                tracemalloc.start()
                 bin_ti = time.time()
                 dijkstra(graph, start, BinaryHeap(v))
                 bin_tf = time.time()
@@ -36,12 +43,7 @@ def exp(v_range, p_range):
                 bin_list_memory_current.append(bin_current)
                 bin_list_memory_peak.append(bin_peak)
 
-                tracemalloc.start()
-                fib_ti = time.time()
-                dijkstra(graph, start, FibonacciHeap(v))
-                fib_tf = time.time()
-                fib_current, fib_peak = tracemalloc.get_traced_memory()
-                tracemalloc.stop()
+                
                 
                 fib_dt = fib_tf - fib_ti
                 fib_list_k.append(fib_dt)
@@ -62,7 +64,6 @@ def exp(v_range, p_range):
                                 "memory_peak_mean": statistics.mean(bin_list_memory_peak),
                                 "memory_peak_std": statistics.stdev(bin_list_memory_peak)}
             print("[{}][V = {}][p = {}]".format(time.ctime(time.time()), v, p))
-        out[v] = fib_current_v
         out["fib"][v] = fib_current_v
         out["bin"][v] = bin_current_v
     return out

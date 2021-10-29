@@ -22,5 +22,5 @@ for big_n in results:
     plt.xlabel('Valores de $\\rho$')
     plt.ylabel('Tamaño del Bloom Filter (Bytes)')
     plt.legend()
-    plt.savefig(f'experimentos/graph/[N={big_n}]sizes.png')
+    plt.savefig(f'experimentos/graph/size/{small_n}.png')
     plt.close()

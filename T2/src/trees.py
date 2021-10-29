@@ -97,23 +97,12 @@ class BinomNode:
         self.right = None
 
         self.unmark()
-    
-    #def add_left_to_array(self, arr):
-    #    if self.left != None:
-    #        arr.append(self.left)
-    #        self.left.add_left_to_array(arr)
-        
-    #def add_right_to_array(self, arr):
-    #    if self.right != None:
-    #        arr.append(self.right)
-    #        self.right.add_right_to_array(arr)
-    
+       
     def array_of_right_elements(self):
         arr = []
         current_node = self
         next_node = self.right
         while next_node != None:
-            #print('receiving node to the right ({}, {})'.format(next_node.element, next_node.key))
             arr.append(next_node)
             current_node = next_node
             next_node = current_node.right
@@ -124,7 +113,6 @@ class BinomNode:
         arr = []
         next_node = self.left
         while next_node != None:
-            #print('receiving node to the left ({}, {})'.format(next_node.element, next_node.key))
             arr.append(next_node)
             current_node = next_node
             next_node = current_node.left

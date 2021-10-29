@@ -12,7 +12,7 @@ output = {}
 for big_n in N_RANGE:
     small_n = big_n / 2
     current_n = {}
-    M_RANGE = [small_n/1000, small_n/100, small_n/50, small_n/10, small_n, small_n*2, small_n*3, small_n*4, small_n*5, small_n*6, small_n*7]
+    M_RANGE = [small_n/1000, small_n/100, small_n/50, small_n/10, small_n, small_n*2, small_n*3, small_n*4, small_n*5, small_n*6, small_n*7, small_n*8, small_n*9, small_n*10]
     for mxd in M_RANGE:
         m = int(mxd)
         search_times_bf = []
@@ -68,7 +68,7 @@ for big_n in N_RANGE:
             'disk_access_total': sum(disk_access),
             'disk_access_mean': mean_disk_access,
             'disk_access_std': statistics.stdev(disk_access),
-            'experimental_false_positives_percentage': mean_false_positives / mean_disk_access * 100.0,
+            'experimental_false_positives_percentage': mean_false_positives / (big_n - small_n) * 100.0,
             'theorical_false_positive_percentage': probability_falses_positives(m, small_n) * 100,
             'initial_size_bf_total': sum(initial_size_bf),
             'initial_size_bf_mean': statistics.mean(initial_size_bf),
@@ -79,6 +79,6 @@ for big_n in N_RANGE:
         }
     
     output[big_n] = current_n
-    json_file = open('experimentos/files/results.json', 'w')
+    json_file = open('experimentos/files/new_results.json', 'w')
     json.dump(output, json_file)
     json_file.close()

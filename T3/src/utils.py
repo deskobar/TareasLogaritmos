@@ -21,7 +21,7 @@ def get_k(m, n):
     return k
 
 def probability_falses_positives(m, n):
-    k = ceil(get_k(m, n))
+    k = get_k(m, n)
     p = (1 - (1 - 1/m)**(k*n))**k
     return p
 
@@ -31,3 +31,9 @@ def get_correct_list(l):
     if len(l) == 1:
         return l * 2
     return l
+
+def get_theorical_disk_access(m, small_n, big_n):
+    p = probability_falses_positives(m, small_n)
+    bad_disk_access = (big_n - small_n) * p
+    total_disk_access = small_n + bad_disk_access
+    return total_disk_access
